@@ -257,7 +257,7 @@ public final class KeyboardState {
     }
 
     public void onPressKey(final int code, final boolean isSinglePointer, final int autoCapsFlags,
-            final int recapitalizeMode) {
+            final int recapitalizeMode, final boolean isKoreanLayout) {
         if (DEBUG_EVENT) {
             Log.d(TAG, "onPressKey: code=" + Constants.printableCode(code)
                     + " single=" + isSinglePointer
@@ -277,9 +277,10 @@ public final class KeyboardState {
         } else {
             mShiftKeyState.onOtherKeyPressed();
             mSymbolKeyState.onOtherKeyPressed();
-            // Backspace exits the temporary manual shift mode (e.g. one-tap shift for a single
-            // capital letter), but keeps caps lock and automatic caps intact.
-            if (code == Constants.CODE_DELETE
+            // In the Korean layout only, backspace exits the temporary manual shift mode
+            // (e.g. one-tap shift for a single capital letter), but keeps caps lock and
+            // automatic caps intact.
+            if (code == Constants.CODE_DELETE && isKoreanLayout
                     && mAlphabetShiftState.isManualShifted()
                     && !mAlphabetShiftState.isShiftLocked()) {
                 setShifted(UNSHIFT);

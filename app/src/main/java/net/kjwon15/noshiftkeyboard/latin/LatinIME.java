@@ -878,7 +878,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     public void onPressKey(final int primaryCode, final int repeatCount,
             final boolean isSinglePointer) {
         mKeyboardSwitcher.onPressKey(primaryCode, isSinglePointer, getCurrentAutoCapsState(),
-                getCurrentRecapitalizeState());
+                getCurrentRecapitalizeState(), isKoreanLayout());
         hapticAndAudioFeedback(primaryCode, repeatCount);
     }
 
