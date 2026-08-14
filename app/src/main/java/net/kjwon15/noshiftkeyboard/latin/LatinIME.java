@@ -698,9 +698,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // of committed text instead of undoing jamo by jamo.
         mInputLogic.commitComposingTextIfAny();
         // The delete key on the left edge cannot swipe left (off-screen), so flip the
-        // direction: swipe right to delete. When the backspace is on the right (option
-        // enabled) the swipe stays leftward as usual.
-        if (!mSettings.getCurrent().mShowBackspaceOnRight) {
+        // direction: swipe right to delete. The backspace sits on the left only in the
+        // Korean layout with the "backspace on right" option off; the English (qwerty)
+        // layout always keeps it on the right regardless of the option.
+        final boolean backspaceOnRight = !isKoreanLayout()
+                || mSettings.getCurrent().mShowBackspaceOnRight;
+        if (!backspaceOnRight) {
             steps = -steps;
         }
         if (mInputLogic.mConnection.hasCursorPosition()) {
