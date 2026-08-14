@@ -61,4 +61,9 @@
         latin:keySpec="&#x3161;"
         latin:keyHintLabel="\?"
         latin:moreKeys="\?" />
+    <!-- U+3163: "ㅣ" -> hint "=", popup "=" (moved from row 2 to sit below ㅏ) -->
+    <Key
+        latin:keySpec="&#x3163;"
+        latin:keyHintLabel="="
+        latin:moreKeys="=" />
 </merge>

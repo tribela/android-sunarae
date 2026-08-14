@@ -140,6 +140,20 @@ public class HangulCombinerTest {
         assertEquals("ㅢ", sendKey(0x3163));
     }
 
+    @Test
+    public void vowelChain_a_i_ae() {
+        // wide 레이아웃에서 ㅐ 키가 제거됨 → ㅏ + ㅣ = ㅐ 조합
+        assertEquals("ㅏ", sendKey(0x314f));
+        assertEquals("ㅐ", sendKey(0x3163));
+    }
+
+    @Test
+    public void vowelChain_eo_i_e() {
+        // wide 레이아웃에서 ㅔ 키가 제거됨 → ㅓ + ㅣ = ㅔ 조합
+        assertEquals("ㅓ", sendKey(0x3153));
+        assertEquals("ㅔ", sendKey(0x3163));
+    }
+
     // ── 받침 조합 ──
 
     @Test
