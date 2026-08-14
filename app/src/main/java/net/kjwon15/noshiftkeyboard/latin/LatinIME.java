@@ -726,7 +726,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     public void switchToNextSubtype() {
         final IBinder token = getWindow().getWindow().getAttributes().token;
-        mRichImm.switchToNextInputMethod(token, !shouldSwitchToOtherInputMethods(token));
+        if (shouldSwitchToOtherInputMethods(token)) {
+            // User enabled switching to other input methods: cycle our own subtypes first,
+            // then fall back to the system's other IMEs.
+            mRichImm.switchToNextInputMethod(token, false);
+        } else {
+            // Default: cycle internal subtypes (e.g. Korean <-> English) without leaving this
+            // IME. Synchronous; notifies {@link #onCurrentSubtypeChanged()} which reloads the
+            // keyboard and refreshes the Korean layout state in InputLogic.
+            mRichImm.switchToNextSubtype(true);
+        }
     }
 
     // TODO: Instead of checking for alphabetic keyboard here, separate keycodes for

@@ -88,6 +88,7 @@ public final class SubtypeLocaleUtils {
     private static final String LOCALE_KAZAKH = "kk";
     private static final String LOCALE_KHMER_CAMBODIA = "km_KH";
     private static final String LOCALE_KANNADA_INDIA = "kn_IN";
+    private static final String LOCALE_KOREAN = "ko";
     private static final String LOCALE_KYRGYZ = "ky";
     private static final String LOCALE_LAO_LAOS = "lo_LA";
     private static final String LOCALE_LITHUANIAN = "lt";
@@ -169,6 +170,7 @@ public final class SubtypeLocaleUtils {
             LOCALE_KAZAKH,
             LOCALE_KHMER_CAMBODIA,
             LOCALE_KANNADA_INDIA,
+            LOCALE_KOREAN,
             LOCALE_KYRGYZ,
             LOCALE_LAO_LAOS,
             LOCALE_LITHUANIAN,
@@ -236,6 +238,7 @@ public final class SubtypeLocaleUtils {
     public static final String LAYOUT_HINDI_COMPACT = "hindi_compact";
     public static final String LAYOUT_KANNADA = "kannada";
     public static final String LAYOUT_KHMER = "khmer";
+    public static final String LAYOUT_KOREAN = "korean";
     public static final String LAYOUT_LAO = "lao";
     public static final String LAYOUT_MACEDONIAN = "macedonian";
     public static final String LAYOUT_MALAYALAM = "malayalam";
@@ -323,8 +326,22 @@ public final class SubtypeLocaleUtils {
         if (subtypes.size() == 0) {
             // there needs to be at least one default subtype
             subtypes.add(getSubtypes(LOCALE_ENGLISH_UNITED_STATES, resources).get(0));
+        } else if (containsLocale(subtypes, LOCALE_KOREAN)
+                && !containsLocale(subtypes, LOCALE_ENGLISH_UNITED_STATES)) {
+            // Korean-only system locale list: still add English so the language switch key
+            // can cycle between the Korean and English (QWERTY) layouts.
+            subtypes.add(getSubtype(LOCALE_ENGLISH_UNITED_STATES, LAYOUT_QWERTY, resources));
         }
         return subtypes;
+    }
+
+    private static boolean containsLocale(final List<Subtype> subtypes, final String locale) {
+        for (final Subtype subtype : subtypes) {
+            if (locale.equals(subtype.getLocale())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -514,6 +531,10 @@ public final class SubtypeLocaleUtils {
                     break;
                 case LOCALE_KHMER_CAMBODIA:
                     addLayout(LAYOUT_KHMER);
+                    break;
+                case LOCALE_KOREAN:
+                    // "korean" layoutSet -> keyboard_layout_set_korean.xml (Dubeolsik noshift).
+                    addLayout(LAYOUT_KOREAN);
                     break;
                 case LOCALE_KANNADA_INDIA:
                     addLayout(LAYOUT_KANNADA);

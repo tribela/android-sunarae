@@ -513,6 +513,19 @@ public class RichInputMethodManager {
     }
 
     /**
+     * Switch to the next subtype of this IME through the internal virtual subtype list.
+     * Unlike {@link #switchToNextInputMethod(IBinder, boolean)}, this never switches to another
+     * input method; it only cycles through the enabled subtypes of this IME.
+     * @param notifyChangeOnCycle whether the subtype changed handler should be notified if the
+     *                            end of the list is passed and the next subtype would go back to
+     *                            the first in the list.
+     * @return whether the subtype changed listener was called.
+     */
+    public boolean switchToNextSubtype(final boolean notifyChangeOnCycle) {
+        return mSubtypeList.switchToNextSubtype(notifyChangeOnCycle);
+    }
+
+    /**
      * Get the subtype that is currently in use.
      * @return the current subtype.
      */
