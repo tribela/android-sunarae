@@ -277,13 +277,14 @@ public final class KeyboardState {
         } else {
             mShiftKeyState.onOtherKeyPressed();
             mSymbolKeyState.onOtherKeyPressed();
-            // In the Korean layout only, backspace exits the temporary manual shift mode
-            // (e.g. one-tap shift for a single capital letter), but keeps caps lock and
-            // automatic caps intact.
+            // In the Korean layout only, backspace exits the shift state — both the
+            // temporary manual shift (one tap) and the shift lock (double tap) — but
+            // keeps automatic caps intact.
             if (code == Constants.CODE_DELETE && isKoreanLayout
-                    && mAlphabetShiftState.isManualShifted()
-                    && !mAlphabetShiftState.isShiftLocked()) {
+                    && (mAlphabetShiftState.isManualShifted()
+                            || mAlphabetShiftState.isShiftLocked())) {
                 setShifted(UNSHIFT);
+                setShiftLocked(false);
             }
             // It is required to reset the auto caps state when all of the following conditions
             // are met:
