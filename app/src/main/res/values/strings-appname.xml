@@ -21,6 +21,4 @@
 <resources>
     <string name="english_ime_name" translatable="false">순아래 키보드</string>
     <string name="english_ime_settings" translatable="false">순아래 키보드 설정</string>
-    <string name="privacy_policy_url" translatable="false">https://github.com/rkkr/simple-keyboard/blob/master/PRIVACY.md</string>
-    <string name="license_url" translatable="false">https://github.com/rkkr/simple-keyboard/blob/master/LICENSE</string>
 </resources>

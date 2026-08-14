@@ -18,14 +18,11 @@
 
 package net.kjwon15.noshiftkeyboard.latin.settings;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
+import android.app.AlertDialog;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import net.kjwon15.noshiftkeyboard.R;
 import net.kjwon15.noshiftkeyboard.latin.utils.ApplicationUtils;
@@ -46,25 +43,42 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         findPreference("privacy_policy").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                openUrl(res.getString(R.string.privacy_policy_url));
+                showTextDialog(res.getString(R.string.privacy_policy),
+                        res.getString(R.string.privacy_policy_text));
                 return true;
             }
         });
         findPreference("license").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                openUrl(res.getString(R.string.license_url));
+                showTextDialog(res.getString(R.string.license),
+                        loadRawResource(R.raw.license_text));
                 return true;
             }
         });
     }
 
-    private void openUrl(String uri) {
+    private void showTextDialog(final String title, final String text) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(title)
+                .setMessage(text)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
+
+    private String loadRawResource(final int resId) {
         try {
-            final Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-            startActivity(browserIntent);
-        } catch (ActivityNotFoundException e) {
-            Log.e(TAG, "Browser not found");
+            final java.io.InputStream is = getResources().openRawResource(resId);
+            final java.io.ByteArrayOutputStream bos = new java.io.ByteArrayOutputStream();
+            final byte[] buffer = new byte[4096];
+            int length;
+            while ((length = is.read(buffer)) != -1) {
+                bos.write(buffer, 0, length);
+            }
+            is.close();
+            return bos.toString("UTF-8");
+        } catch (java.io.IOException e) {
+            return "";
         }
     }
 }
