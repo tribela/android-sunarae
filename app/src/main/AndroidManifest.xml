@@ -23,6 +23,7 @@
         android:fullBackupOnly="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/english_ime_name"
+        android:localeConfig="@xml/locales_config"
         android:supportsRtl="true">
 
         <service
