@@ -233,6 +233,20 @@ public final class StringUtils {
             case "\u00DF":
                 // sharp S (ß, U+00DF) => ẞ (U+1E9E), not 'SS'.
                 return "\u1E9E";
+            case "\u3131": // ㄱ -> ㄲ
+                return "\u3132";
+            case "\u3137": // ㄷ -> ㄸ
+                return "\u3138";
+            case "\u3142": // ㅂ -> ㅃ
+                return "\u3143";
+            case "\u3145": // ㅅ -> ㅆ
+                return "\u3146";
+            case "\u3148": // ㅈ -> ㅉ
+                return "\u3149";
+            case "\u3150": // ㅐ -> ㅒ
+                return "\u3152";
+            case "\u3154": // ㅔ -> ㅖ
+                return "\u3156";
             default:
                 return label.toUpperCase(getLocaleUsedForToTitleCase(locale));
         }
