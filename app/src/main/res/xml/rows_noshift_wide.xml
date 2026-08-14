@@ -18,16 +18,11 @@
 */
 -->
 
-<!-- Wide Dubeolsik arrangement (ortholinear grid, no stagger):
-     Every row uses keyWidth="12.5%p" (8 keys x 12.5% = 100%) so the grid
-     fills the screen edge to edge and columns align exactly:
-     col  0  1  2  3  4  5  6  7
-     row1 ㅂ ㅈ ㄷ ㄱ ㅅ ㅛ ㅕ ㅑ   (8 keys, ㅐㅔ removed)
-     row2 ㅁ ㄴ ㅇ ㄹ ㅎ ㅗ ㅓ ㅏ   (8 keys, ㅣ moved to row 3)
-     row3 ㅋ ㅌ ㅊ ㅍ ㅠ ㅜ ㅡ ㅣ   (8 keys)
-     No delete key on row 3: it lives on the bottom row between period
-     and enter (row_noshift_bottom_wide), keeping the grid clean.
-     ㅣ sits directly below ㅏ; ㅋ aligns with ㅂ/ㅁ. -->
+<!-- Wide Dubeolsik experiment: standard layout with only ㅐㅔ removed.
+     Row 1 has 8 keys (ㅂㅈㄷㄱㅅㅛㅕㅑ, ㅐㅔ removed) at 12.5%p each = 100%.
+     Rows 2-3 follow the standard layout exactly (11.1%p keys):
+     row 2 ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys), row 3 ㅋㅌㅊㅍㅠㅜㅡ (7 keys)
+     with delete on the left and shift on the right of row 3. -->
 
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
     <Row
@@ -37,17 +32,25 @@
             latin:keyboardLayout="@xml/rowkeys_noshift_wide1" />
     </Row>
     <Row
-        latin:keyWidth="12.5%p"
+        latin:keyWidth="11.1%p"
     >
         <include
             latin:keyboardLayout="@xml/rowkeys_noshift_wide2" />
     </Row>
     <Row
-        latin:keyWidth="12.5%p"
+        latin:keyWidth="11.1%p"
     >
+        <Key
+            latin:keyStyle="deleteKeyStyle"
+            latin:keyWidth="11.1%p" />
         <include
+            latin:keyXPos="11.1%p"
             latin:keyboardLayout="@xml/rowkeys_noshift_wide3" />
+        <Key
+            latin:keyStyle="shiftKeyStyle"
+            latin:keyXPos="88.8%p"
+            latin:keyWidth="11.2%p" />
     </Row>
     <include
-        latin:keyboardLayout="@xml/row_noshift_bottom_wide" />
+        latin:keyboardLayout="@xml/row_noshift_bottom" />
 </merge>

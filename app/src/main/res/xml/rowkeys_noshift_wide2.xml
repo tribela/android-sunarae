@@ -70,9 +70,14 @@
                 latin:keySpec="&#x314F;"
                 latin:keyHintLabel="+"
                 latin:moreKeys="+" />
+            <!-- U+3163: "ㅣ" -> hint "=", popup "=" -->
+            <Key
+                latin:keySpec="&#x3163;"
+                latin:keyHintLabel="="
+                latin:moreKeys="=" />
         </case>
         <default>
-            <!-- Number row hidden: ㅓ popup gains 9, ㅏ popup gains 0. -->
+            <!-- Number row hidden: ㅏ popup gains 9, ㅣ popup gains 0. -->
             <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
             <Key
                 latin:keySpec="&#x3141;"
@@ -103,16 +108,21 @@
                 latin:keySpec="&#x3157;"
                 latin:keyHintLabel="&#x5F;"
                 latin:moreKeys="&#x5F;" />
-            <!-- U+3153: "ㅓ" -> hint "9", popup "9", "-" -->
+            <!-- U+3153: "ㅓ" -> hint "-", popup "-" -->
             <Key
                 latin:keySpec="&#x3153;"
-                latin:keyHintLabel="9"
-                latin:moreKeys="9,-" />
-            <!-- U+314F: "ㅏ" -> hint "0", popup "0", "+" -->
+                latin:keyHintLabel="-"
+                latin:moreKeys="-" />
+            <!-- U+314F: "ㅏ" -> hint "9", popup "9", "+" -->
             <Key
                 latin:keySpec="&#x314F;"
+                latin:keyHintLabel="9"
+                latin:moreKeys="9,+" />
+            <!-- U+3163: "ㅣ" -> hint "0", popup "0", "=" -->
+            <Key
+                latin:keySpec="&#x3163;"
                 latin:keyHintLabel="0"
-                latin:moreKeys="0,+" />
+                latin:moreKeys="0,=" />
         </default>
     </switch>
 </merge>
