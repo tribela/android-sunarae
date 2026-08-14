@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in /home/rkr/Android/Sdk/tools/proguard/proguard-android.txt
+# in the default proguard-android-optimize.txt.
 # You can edit the include path and order by changing the proguardFiles
 # directive in build.gradle.
 #
@@ -16,7 +16,7 @@
 #   public *;
 #}
 
--keep class rkr.simplekeyboard.inputmethod.R
--keep class rkr.simplekeyboard.inputmethod.latin.settings.SettingsFragment
--keep class rkr.simplekeyboard.inputmethod.latin.settings.LanguagesSettingsFragment
--keep class rkr.simplekeyboard.inputmethod.latin.settings.SingleLanguageSettingsFragment
+-keep class net.kjwon15.noshiftkeyboard.R
+-keep class net.kjwon15.noshiftkeyboard.latin.settings.SettingsFragment
+-keep class net.kjwon15.noshiftkeyboard.latin.settings.LanguagesSettingsFragment
+-keep class net.kjwon15.noshiftkeyboard.latin.settings.SingleLanguageSettingsFragment
