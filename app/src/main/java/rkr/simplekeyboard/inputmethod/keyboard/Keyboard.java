@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.util.SparseArray;
 
@@ -24,10 +24,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyVisualAttributes;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardIconsSet;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardParams;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyVisualAttributes;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardIconsSet;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardParams;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
 
 /**
  * Loads an XML description of a keyboard and stores the attributes of the keys. A keyboard

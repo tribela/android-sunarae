@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -34,8 +34,8 @@ import android.view.WindowInsets;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.utils.FragmentUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.utils.FragmentUtils;
 
 public class SettingsActivity extends PreferenceActivity {
     private static final String DEFAULT_FRAGMENT = SettingsFragment.class.getName();

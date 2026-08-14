@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -24,7 +24,7 @@ import android.text.TextUtils;
 
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
 
 // TODO: Make this an immutable class.
 public final class KeyboardTextsSet {

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.res.TypedArray;
 import android.util.Log;
@@ -28,8 +28,8 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.utils.XmlParseUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.utils.XmlParseUtils;
 
 public final class KeyStylesSet {
     private static final String TAG = KeyStylesSet.class.getSimpleName();

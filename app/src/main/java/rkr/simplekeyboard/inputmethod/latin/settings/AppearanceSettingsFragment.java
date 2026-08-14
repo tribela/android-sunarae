@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,8 +24,8 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardTheme;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardTheme;
 
 /**
  * "Appearance" settings sub screen.

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 /**
  * This class handles key detection.

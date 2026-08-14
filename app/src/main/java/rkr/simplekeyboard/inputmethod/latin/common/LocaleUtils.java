@@ -16,7 +16,7 @@
  * the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.common;
+package net.kjwon15.noshiftkeyboard.latin.common;
 
 import android.content.res.Resources;
 import android.os.LocaleList;
@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.latin.utils.LocaleResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LocaleResourceUtils;
 
 /**
  * A class to help with handling Locales in string form.

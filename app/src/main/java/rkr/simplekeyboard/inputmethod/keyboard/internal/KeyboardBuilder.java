@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -35,15 +35,15 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
-import rkr.simplekeyboard.inputmethod.keyboard.Keyboard;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardId;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardTheme;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.ResourceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.XmlParseUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.XmlParseUtils.ParseException;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.keyboard.Keyboard;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardId;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardTheme;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.ResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.XmlParseUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.XmlParseUtils.ParseException;
 
 /**
  * Keyboard Building helper.

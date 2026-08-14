@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
-import rkr.simplekeyboard.inputmethod.keyboard.PointerTracker;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.keyboard.PointerTracker;
 
 public interface TimerProxy {
     /**

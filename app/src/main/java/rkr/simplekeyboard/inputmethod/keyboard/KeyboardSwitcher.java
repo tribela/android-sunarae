@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -27,20 +27,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.event.Event;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardState;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardTextsSet;
-import rkr.simplekeyboard.inputmethod.latin.InputView;
-import rkr.simplekeyboard.inputmethod.latin.LatinIME;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
-import rkr.simplekeyboard.inputmethod.latin.settings.Settings;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
-import rkr.simplekeyboard.inputmethod.latin.utils.CapsModeUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.RecapitalizeStatus;
-import rkr.simplekeyboard.inputmethod.latin.utils.ResourceUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.event.Event;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardLayoutSet.KeyboardLayoutSetException;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardState;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardTextsSet;
+import net.kjwon15.noshiftkeyboard.latin.InputView;
+import net.kjwon15.noshiftkeyboard.latin.LatinIME;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.latin.utils.CapsModeUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LanguageOnSpacebarUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.RecapitalizeStatus;
+import net.kjwon15.noshiftkeyboard.latin.utils.ResourceUtils;
 
 public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();

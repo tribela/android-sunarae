@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import static android.content.ClipDescription.MIMETYPE_TEXT_HTML;
 import static android.content.ClipDescription.MIMETYPE_TEXT_PLAIN;
@@ -36,10 +36,10 @@ import android.view.inputmethod.SurroundingText;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
-import rkr.simplekeyboard.inputmethod.latin.settings.SpacingAndPunctuations;
-import rkr.simplekeyboard.inputmethod.latin.utils.CapsModeUtils;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.settings.SpacingAndPunctuations;
+import net.kjwon15.noshiftkeyboard.latin.utils.CapsModeUtils;
 
 /**
  * Enrichment class for InputConnection to simplify interaction and add functionality.

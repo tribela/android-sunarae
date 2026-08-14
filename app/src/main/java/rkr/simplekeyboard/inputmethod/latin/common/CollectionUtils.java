@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.common;
+package net.kjwon15.noshiftkeyboard.latin.common;
 
 import java.util.ArrayList;
 

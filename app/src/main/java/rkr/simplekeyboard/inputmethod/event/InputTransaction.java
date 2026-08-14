@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.event;
+package net.kjwon15.noshiftkeyboard.event;
 
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
 
 /**
  * An object encapsulating a single transaction for input.

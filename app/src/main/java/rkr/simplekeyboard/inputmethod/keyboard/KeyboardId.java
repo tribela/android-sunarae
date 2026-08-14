@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.text.InputType;
 import android.text.TextUtils;
@@ -25,9 +25,9 @@ import android.view.inputmethod.EditorInfo;
 import java.util.Arrays;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.compat.EditorInfoCompatUtils;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.utils.InputTypeUtils;
+import net.kjwon15.noshiftkeyboard.compat.EditorInfoCompatUtils;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.utils.InputTypeUtils;
 
 /**
  * Unique identifier for each keyboard type.

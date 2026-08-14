@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
@@ -27,8 +27,8 @@ import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.utils.ApplicationUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.utils.ApplicationUtils;
 
 public final class SettingsFragment extends InputMethodSettingsFragment {
     private static final String TAG = "SettingsFragment";

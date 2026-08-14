@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.view.View;
 import android.view.ViewGroup;

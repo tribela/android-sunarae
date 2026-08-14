@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -47,14 +47,14 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Executors;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
-import rkr.simplekeyboard.inputmethod.latin.common.LocaleUtils;
-import rkr.simplekeyboard.inputmethod.latin.settings.Settings;
-import rkr.simplekeyboard.inputmethod.latin.utils.DialogUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.SubtypePreferenceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LocaleResourceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.latin.common.LocaleUtils;
+import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
+import net.kjwon15.noshiftkeyboard.latin.utils.DialogUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.SubtypePreferenceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LocaleResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.SubtypeLocaleUtils;
 
 /**
  * Enrichment class for InputMethodManager to simplify interaction and add functionality.

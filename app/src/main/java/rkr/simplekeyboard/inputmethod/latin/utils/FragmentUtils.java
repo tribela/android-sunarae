@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import java.util.HashSet;
 
-import rkr.simplekeyboard.inputmethod.latin.settings.AppearanceSettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.KeyPressSettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.LanguagesSettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.PreferencesSettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.SingleLanguageSettingsFragment;
-import rkr.simplekeyboard.inputmethod.latin.settings.ThemeSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.AppearanceSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.KeyPressSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.LanguagesSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.PreferencesSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.SingleLanguageSettingsFragment;
+import net.kjwon15.noshiftkeyboard.latin.settings.ThemeSettingsFragment;
 
 public class FragmentUtils {
     private static final HashSet<String> sLatinImeFragments = new HashSet<>();

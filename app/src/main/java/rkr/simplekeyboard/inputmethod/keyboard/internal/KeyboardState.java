@@ -16,15 +16,15 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.text.TextUtils;
 import android.util.Log;
 
-import rkr.simplekeyboard.inputmethod.event.Event;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.utils.CapsModeUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.RecapitalizeStatus;
+import net.kjwon15.noshiftkeyboard.event.Event;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.utils.CapsModeUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.RecapitalizeStatus;
 
 /**
  * Keyboard state machine.

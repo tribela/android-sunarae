@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
 
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_UNSPECIFIED;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_OUTPUT_TEXT;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_UNSPECIFIED;
 
 /**
  * The string parser of the key specification.

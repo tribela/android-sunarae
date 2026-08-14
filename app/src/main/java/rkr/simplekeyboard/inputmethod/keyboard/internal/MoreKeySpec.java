@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.text.TextUtils;
 import android.util.SparseIntArray;
@@ -25,10 +25,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
-import rkr.simplekeyboard.inputmethod.latin.common.CollectionUtils;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.latin.common.CollectionUtils;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
 
 /**
  * The more key specification object. The more keys are an array of {@link MoreKeySpec}.

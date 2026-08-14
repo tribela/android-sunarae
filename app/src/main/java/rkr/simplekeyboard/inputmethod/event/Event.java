@@ -15,9 +15,9 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.event;
+package net.kjwon15.noshiftkeyboard.event;
 
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
 
 /**
  * Class representing a generic input event as handled by Latin IME.

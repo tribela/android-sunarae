@@ -22,7 +22,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import android.content.res.Resources;
 
@@ -32,9 +32,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.common.LocaleUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.common.LocaleUtils;
 
 /**
  * Utility methods for building subtypes for the supported locales.

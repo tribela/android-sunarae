@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.app.backup.BackupManager;
 import android.content.Context;
@@ -30,7 +30,7 @@ import android.util.Log;
 
 import java.util.Set;
 
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
 
 /**
  * A base abstract class for a {@link PreferenceFragment} that implements a nested

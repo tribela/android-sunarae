@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.compat;
+package net.kjwon15.noshiftkeyboard.compat;
 
 import android.content.Context;
 import android.content.SharedPreferences;

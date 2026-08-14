@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.content.Context;
 import android.content.RestrictionsManager;
@@ -27,10 +27,10 @@ import android.text.TextUtils;
 
 import java.util.Set;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
 
 /* package private */ class InputMethodSettingsImpl {
     private Preference mSubtypeEnablerPreference;

@@ -15,11 +15,11 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.graphics.Typeface;
 
-import rkr.simplekeyboard.inputmethod.latin.utils.ResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.ResourceUtils;
 
 public final class KeyDrawParams {
     public Typeface mTypeface = Typeface.DEFAULT;

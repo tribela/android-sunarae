@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -28,7 +28,7 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import rkr.simplekeyboard.inputmethod.R;
+import net.kjwon15.noshiftkeyboard.R;
 
 public final class ColorDialogPreference extends DialogPreference
         implements SeekBar.OnSeekBarChangeListener {

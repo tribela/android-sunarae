@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.app.KeyguardManager;
 import android.content.Context;
@@ -37,13 +37,13 @@ import java.lang.ref.SoftReference;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardBuilder;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.UniqueKeysCache;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.utils.InputTypeUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.XmlParseUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardBuilder;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.UniqueKeysCache;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.utils.InputTypeUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.XmlParseUtils;
 
 /**
  * This class represents a set of keyboard layouts. Each of them represents a different keyboard

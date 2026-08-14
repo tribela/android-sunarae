@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import android.content.res.Resources;
 import android.text.TextUtils;
@@ -24,7 +24,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
 
 public final class SubtypePreferenceUtils {
     private static final String TAG = SubtypePreferenceUtils.class.getSimpleName();

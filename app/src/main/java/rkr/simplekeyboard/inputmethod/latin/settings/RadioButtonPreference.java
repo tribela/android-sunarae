@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.content.Context;
 import android.preference.Preference;
@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.RadioButton;
 
-import rkr.simplekeyboard.inputmethod.R;
+import net.kjwon15.noshiftkeyboard.R;
 
 /**
  * Radio Button preference

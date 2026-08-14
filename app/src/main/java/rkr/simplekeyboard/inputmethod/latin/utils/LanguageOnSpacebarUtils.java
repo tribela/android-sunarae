@@ -16,13 +16,13 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import java.util.Locale;
 import java.util.Set;
 
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
 
 /**
  * This class determines that the language name on the spacebar should be displayed in what format.

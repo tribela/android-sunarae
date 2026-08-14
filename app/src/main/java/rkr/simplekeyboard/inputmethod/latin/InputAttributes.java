@@ -15,13 +15,13 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import android.text.InputType;
 import android.util.Log;
 import android.view.inputmethod.EditorInfo;
 
-import rkr.simplekeyboard.inputmethod.latin.utils.InputTypeUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.InputTypeUtils;
 
 /**
  * Class to hold attributes of the input field.

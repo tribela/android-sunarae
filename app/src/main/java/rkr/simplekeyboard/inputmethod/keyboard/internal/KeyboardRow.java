@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -27,10 +27,10 @@ import org.xmlpull.v1.XmlPullParser;
 
 import java.util.ArrayDeque;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
-import rkr.simplekeyboard.inputmethod.keyboard.Keyboard;
-import rkr.simplekeyboard.inputmethod.latin.utils.ResourceUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.keyboard.Keyboard;
+import net.kjwon15.noshiftkeyboard.latin.utils.ResourceUtils;
 
 /**
  * Container for keys in the keyboard. All keys in a row are at the same Y-coordinate.

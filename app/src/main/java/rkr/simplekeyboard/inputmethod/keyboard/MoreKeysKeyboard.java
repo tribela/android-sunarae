@@ -16,18 +16,18 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.content.Context;
 import android.graphics.Paint;
 import android.util.Log;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardBuilder;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.MoreKeySpec;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.TypefaceUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardBuilder;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.MoreKeySpec;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.TypefaceUtils;
 
 public final class MoreKeysKeyboard extends Keyboard {
     private static final String TAG = MoreKeysKeyboard.class.getSimpleName();

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.animation.AnimatorInflater;
 import android.animation.ObjectAnimator;
@@ -37,23 +37,23 @@ import android.view.ViewGroup;
 
 import java.util.WeakHashMap;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.DrawingPreviewPlacerView;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.DrawingProxy;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyDrawParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyPreviewChoreographer;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyPreviewDrawParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyPreviewView;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.MoreKeySpec;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.NonDistinctMultitouchHelper;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.TimerHandler;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.CoordinateUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LanguageOnSpacebarUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LocaleResourceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.TypefaceUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.DrawingPreviewPlacerView;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.DrawingProxy;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyDrawParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyPreviewChoreographer;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyPreviewDrawParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyPreviewView;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.MoreKeySpec;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.NonDistinctMultitouchHelper;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.TimerHandler;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.CoordinateUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LanguageOnSpacebarUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LocaleResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.TypefaceUtils;
 
 /**
  * A view that is responsible for detecting key presses and touch movements.

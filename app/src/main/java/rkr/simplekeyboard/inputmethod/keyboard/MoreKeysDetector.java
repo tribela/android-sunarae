@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 public final class MoreKeysDetector extends KeyDetector {
     private final int mSlideAllowanceSquare;

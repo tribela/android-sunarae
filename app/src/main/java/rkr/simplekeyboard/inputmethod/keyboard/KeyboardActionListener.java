@@ -16,9 +16,9 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
 
 public interface KeyboardActionListener {
     /**

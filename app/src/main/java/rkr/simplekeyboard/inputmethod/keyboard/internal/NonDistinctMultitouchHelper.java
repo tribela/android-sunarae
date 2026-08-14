@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.util.Log;
 import android.view.MotionEvent;
 
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyDetector;
-import rkr.simplekeyboard.inputmethod.keyboard.PointerTracker;
-import rkr.simplekeyboard.inputmethod.latin.common.CoordinateUtils;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyDetector;
+import net.kjwon15.noshiftkeyboard.keyboard.PointerTracker;
+import net.kjwon15.noshiftkeyboard.latin.common.CoordinateUtils;
 
 public final class NonDistinctMultitouchHelper {
     private static final String TAG = NonDistinctMultitouchHelper.class.getSimpleName();

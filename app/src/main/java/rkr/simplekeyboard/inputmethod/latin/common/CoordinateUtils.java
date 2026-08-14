@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.common;
+package net.kjwon15.noshiftkeyboard.latin.common;
 
 public final class CoordinateUtils {
     private static final int INDEX_X = 0;

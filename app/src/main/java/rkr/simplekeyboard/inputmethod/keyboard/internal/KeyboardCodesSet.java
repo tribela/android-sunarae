@@ -16,11 +16,11 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import java.util.HashMap;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
 
 public final class KeyboardCodesSet {
     public static final String PREFIX_CODE = "!code/";

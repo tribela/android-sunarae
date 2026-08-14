@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,15 +26,15 @@ import android.view.MotionEvent;
 
 import java.util.ArrayList;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.BogusMoveEventDetector;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.DrawingProxy;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.PointerTrackerQueue;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.TimerProxy;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.CoordinateUtils;
-import rkr.simplekeyboard.inputmethod.latin.define.DebugFlags;
-import rkr.simplekeyboard.inputmethod.latin.settings.Settings;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.BogusMoveEventDetector;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.DrawingProxy;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.PointerTrackerQueue;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.TimerProxy;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.CoordinateUtils;
+import net.kjwon15.noshiftkeyboard.latin.define.DebugFlags;
+import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
 
 public final class PointerTracker implements PointerTrackerQueue.Element {
     private static final String TAG = PointerTracker.class.getSimpleName();

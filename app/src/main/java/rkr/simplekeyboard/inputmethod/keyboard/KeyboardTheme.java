@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
-import rkr.simplekeyboard.inputmethod.latin.settings.Settings;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
 
 public final class KeyboardTheme {
     private static final String TAG = KeyboardTheme.class.getSimpleName();

@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -26,8 +26,8 @@ import android.graphics.Color;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
 
 public final class ResourceUtils {
     public static final float UNDEFINED_RATIO = -1.0f;

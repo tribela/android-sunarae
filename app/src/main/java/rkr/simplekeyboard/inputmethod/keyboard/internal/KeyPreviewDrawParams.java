@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -23,7 +23,7 @@ import android.content.res.TypedArray;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
-import rkr.simplekeyboard.inputmethod.R;
+import net.kjwon15.noshiftkeyboard.R;
 
 public final class KeyPreviewDrawParams {
     // XML attributes of {@link MainKeyboardView}.

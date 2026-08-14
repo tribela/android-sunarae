@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -24,7 +24,7 @@ import android.util.SparseIntArray;
 
 import java.util.HashMap;
 
-import rkr.simplekeyboard.inputmethod.R;
+import net.kjwon15.noshiftkeyboard.R;
 
 public final class KeyboardIconsSet {
     private static final String TAG = KeyboardIconsSet.class.getSimpleName();

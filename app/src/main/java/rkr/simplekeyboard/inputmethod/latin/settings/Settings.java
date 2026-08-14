@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,12 +34,12 @@ import android.util.Log;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardTheme;
-import rkr.simplekeyboard.inputmethod.latin.AudioAndHapticFeedbackManager;
-import rkr.simplekeyboard.inputmethod.latin.InputAttributes;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardTheme;
+import net.kjwon15.noshiftkeyboard.latin.AudioAndHapticFeedbackManager;
+import net.kjwon15.noshiftkeyboard.latin.InputAttributes;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
 
 public final class Settings extends BroadcastReceiver implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = Settings.class.getSimpleName();

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.settings;
+package net.kjwon15.noshiftkeyboard.latin.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -40,15 +40,15 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.compat.MenuItemIconColorCompat;
-import rkr.simplekeyboard.inputmethod.latin.Subtype;
-import rkr.simplekeyboard.inputmethod.latin.RichInputMethodManager;
-import rkr.simplekeyboard.inputmethod.latin.common.LocaleUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LocaleResourceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.compat.MenuItemIconColorCompat;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
+import net.kjwon15.noshiftkeyboard.latin.common.LocaleUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LocaleResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.SubtypeLocaleUtils;
 
-import static rkr.simplekeyboard.inputmethod.latin.settings.SingleLanguageSettingsFragment.LOCALE_BUNDLE_KEY;
+import static net.kjwon15.noshiftkeyboard.latin.settings.SingleLanguageSettingsFragment.LOCALE_BUNDLE_KEY;
 
 /**
  * "Languages" settings sub screen.

@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.define;
+package net.kjwon15.noshiftkeyboard.latin.define;
 
 import android.content.SharedPreferences;
 

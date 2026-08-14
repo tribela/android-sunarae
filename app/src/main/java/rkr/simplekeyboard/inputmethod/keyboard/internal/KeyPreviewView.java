@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard.internal;
+package net.kjwon15.noshiftkeyboard.keyboard.internal;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import java.util.HashSet;
 
-import rkr.simplekeyboard.inputmethod.keyboard.Key;
+import net.kjwon15.noshiftkeyboard.keyboard.Key;
 
 /**
  * The pop up key preview view.

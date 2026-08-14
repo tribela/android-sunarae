@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -52,25 +52,25 @@ import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import rkr.simplekeyboard.inputmethod.compat.EditorInfoCompatUtils;
-import rkr.simplekeyboard.inputmethod.compat.PreferenceManagerCompat;
-import rkr.simplekeyboard.inputmethod.event.Event;
-import rkr.simplekeyboard.inputmethod.event.InputTransaction;
-import rkr.simplekeyboard.inputmethod.keyboard.Keyboard;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardActionListener;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardId;
-import rkr.simplekeyboard.inputmethod.keyboard.KeyboardSwitcher;
-import rkr.simplekeyboard.inputmethod.keyboard.MainKeyboardView;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.define.DebugFlags;
-import rkr.simplekeyboard.inputmethod.latin.inputlogic.InputLogic;
-import rkr.simplekeyboard.inputmethod.latin.settings.Settings;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsActivity;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
-import rkr.simplekeyboard.inputmethod.latin.utils.ApplicationUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LeakGuardHandlerWrapper;
-import rkr.simplekeyboard.inputmethod.latin.utils.ResourceUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.ViewLayoutUtils;
+import net.kjwon15.noshiftkeyboard.compat.EditorInfoCompatUtils;
+import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.event.Event;
+import net.kjwon15.noshiftkeyboard.event.InputTransaction;
+import net.kjwon15.noshiftkeyboard.keyboard.Keyboard;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardActionListener;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardId;
+import net.kjwon15.noshiftkeyboard.keyboard.KeyboardSwitcher;
+import net.kjwon15.noshiftkeyboard.keyboard.MainKeyboardView;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.define.DebugFlags;
+import net.kjwon15.noshiftkeyboard.latin.inputlogic.InputLogic;
+import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsActivity;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.latin.utils.ApplicationUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LeakGuardHandlerWrapper;
+import net.kjwon15.noshiftkeyboard.latin.utils.ResourceUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.ViewLayoutUtils;
 
 /**
  * Input method implementation for Qwerty'ish keyboard.

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.keyboard;
+package net.kjwon15.noshiftkeyboard.keyboard;
 
 import android.content.res.TypedArray;
 import android.graphics.Rect;
@@ -27,22 +27,22 @@ import android.text.TextUtils;
 import java.util.Arrays;
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyDrawParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeySpecParser;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyStyle;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyVisualAttributes;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardIconsSet;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardParams;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.KeyboardRow;
-import rkr.simplekeyboard.inputmethod.keyboard.internal.MoreKeySpec;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyDrawParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeySpecParser;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyStyle;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyVisualAttributes;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardIconsSet;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardParams;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardRow;
+import net.kjwon15.noshiftkeyboard.keyboard.internal.MoreKeySpec;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
 
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_OUTPUT_TEXT;
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_SHIFT;
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_SWITCH_ALPHA_SYMBOL;
-import static rkr.simplekeyboard.inputmethod.latin.common.Constants.CODE_UNSPECIFIED;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_OUTPUT_TEXT;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_SHIFT;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_SWITCH_ALPHA_SYMBOL;
+import static net.kjwon15.noshiftkeyboard.latin.common.Constants.CODE_UNSPECIFIED;
 
 /**
  * Class for describing the position and characteristics of a single key in the keyboard.

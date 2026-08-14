@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -28,8 +28,8 @@ import android.view.View;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
 
 /**
  * This class gathers audio feedback and haptic feedback functions.

@@ -15,11 +15,11 @@
  * the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.utils;
+package net.kjwon15.noshiftkeyboard.latin.utils;
 
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
 
 /**
  * The status of the current recapitalize process.

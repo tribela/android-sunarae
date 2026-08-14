@@ -19,7 +19,7 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin.inputlogic;
+package net.kjwon15.noshiftkeyboard.latin.inputlogic;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
@@ -27,16 +27,16 @@ import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 
-import rkr.simplekeyboard.inputmethod.event.Event;
-import rkr.simplekeyboard.inputmethod.event.InputTransaction;
-import rkr.simplekeyboard.inputmethod.latin.LatinIME;
-import rkr.simplekeyboard.inputmethod.latin.RichInputConnection;
-import rkr.simplekeyboard.inputmethod.latin.common.Constants;
-import rkr.simplekeyboard.inputmethod.latin.common.StringUtils;
-import rkr.simplekeyboard.inputmethod.latin.settings.SettingsValues;
-import rkr.simplekeyboard.inputmethod.latin.utils.InputTypeUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.RecapitalizeStatus;
-import rkr.simplekeyboard.inputmethod.latin.utils.SubtypeLocaleUtils;
+import net.kjwon15.noshiftkeyboard.event.Event;
+import net.kjwon15.noshiftkeyboard.event.InputTransaction;
+import net.kjwon15.noshiftkeyboard.latin.LatinIME;
+import net.kjwon15.noshiftkeyboard.latin.RichInputConnection;
+import net.kjwon15.noshiftkeyboard.latin.common.Constants;
+import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
+import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
+import net.kjwon15.noshiftkeyboard.latin.utils.InputTypeUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.RecapitalizeStatus;
+import net.kjwon15.noshiftkeyboard.latin.utils.SubtypeLocaleUtils;
 
 /**
  * This class manages the input logic.

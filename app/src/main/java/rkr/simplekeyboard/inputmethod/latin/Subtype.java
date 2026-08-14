@@ -15,15 +15,15 @@
  * limitations under the License.
  */
 
-package rkr.simplekeyboard.inputmethod.latin;
+package net.kjwon15.noshiftkeyboard.latin;
 
 import android.content.res.Resources;
 
 import java.util.Locale;
 
-import rkr.simplekeyboard.inputmethod.R;
-import rkr.simplekeyboard.inputmethod.latin.common.LocaleUtils;
-import rkr.simplekeyboard.inputmethod.latin.utils.LocaleResourceUtils;
+import net.kjwon15.noshiftkeyboard.R;
+import net.kjwon15.noshiftkeyboard.latin.common.LocaleUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.LocaleResourceUtils;
 
 /**
  * A keyboard layout for a locale.
