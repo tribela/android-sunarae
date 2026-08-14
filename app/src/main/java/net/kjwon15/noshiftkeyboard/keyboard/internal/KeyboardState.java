@@ -277,6 +277,13 @@ public final class KeyboardState {
         } else {
             mShiftKeyState.onOtherKeyPressed();
             mSymbolKeyState.onOtherKeyPressed();
+            // Backspace exits the temporary manual shift mode (e.g. one-tap shift for a single
+            // capital letter), but keeps caps lock and automatic caps intact.
+            if (code == Constants.CODE_DELETE
+                    && mAlphabetShiftState.isManualShifted()
+                    && !mAlphabetShiftState.isShiftLocked()) {
+                setShifted(UNSHIFT);
+            }
             // It is required to reset the auto caps state when all of the following conditions
             // are met:
             // 1) two or more fingers are in action
