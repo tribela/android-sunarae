@@ -18,11 +18,15 @@
 */
 -->
 
+<!-- Korean Dubeolsik noshift wide layout set: alphabet element uses the
+     wide (ortholinear, ㅐㅔ-removed) keyboard, everything else reuses the
+     standard symbol/phone/number keyboards. -->
+
 <KeyboardLayoutSet
     xmlns:latin="http://schemas.android.com/apk/res-auto">
     <Element
         latin:elementName="alphabet"
-        latin:elementKeyboard="@xml/kbd_korean" />
+        latin:elementKeyboard="@xml/kbd_noshift_wide" />
     <Element
         latin:elementName="symbols"
         latin:elementKeyboard="@xml/kbd_symbols" />

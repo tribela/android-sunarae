@@ -30,13 +30,13 @@
             latin:rowHeight="20%p">
             <include latin:keyboardLayout="@xml/key_styles_common" />
             <include latin:keyboardLayout="@xml/row_qwerty0" />
-            <include latin:keyboardLayout="@xml/rows_korean" />
+            <include latin:keyboardLayout="@xml/rows_noshift" />
         </Keyboard>
     </case>
     <default>
         <Keyboard>
             <include latin:keyboardLayout="@xml/key_styles_common" />
-            <include latin:keyboardLayout="@xml/rows_korean" />
+            <include latin:keyboardLayout="@xml/rows_noshift" />
         </Keyboard>
     </default>
 </switch>

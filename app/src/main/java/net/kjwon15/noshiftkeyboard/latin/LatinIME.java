@@ -636,7 +636,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             }
             final String layoutSet = mRichImm.getCurrentSubtype().getKeyboardLayoutSet();
             return layoutSet != null
-                    && layoutSet.toLowerCase(Locale.ROOT).contains("korean");
+                    && layoutSet.toLowerCase(Locale.ROOT).contains("noshift");
         } catch (RuntimeException e) {
             return false;
         }

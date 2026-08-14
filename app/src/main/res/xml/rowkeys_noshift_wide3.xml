@@ -18,7 +18,7 @@
 */
 -->
 
-<!-- Wide layout row 3: ㅋㅌㅊㅍㅠㅜㅡ (7 keys, same popups as rowkeys_korean3).
+<!-- Wide layout row 3: ㅋㅌㅊㅍㅠㅜㅡ (7 keys, same popups as rowkeys_noshift3).
      Long-press popups mirror the AOSP/Gboard English keyboard special
      characters on the physical QWERTY positions (Z->*, X->", C->', V->;,
      B->:, N->,, M->.). -->

@@ -18,7 +18,7 @@
 */
 -->
 
-<!-- Wide layout row 2: ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys, same popups as rowkeys_korean2).
+<!-- Wide layout row 2: ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys, same popups as rowkeys_noshift2).
      Long-press popups mirror the AOSP/Gboard English keyboard special
      characters on the physical QWERTY positions (A->@, S->#, D->$, F->%,
      G->&, H->-, J->+, K->(, L->)). Compound vowels are produced by the
