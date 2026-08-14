@@ -26,39 +26,44 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <!-- U+3142: "ㅂ" -> popup U+3143: "ㅃ" -->
+    <!-- U+3142: "ㅂ" -> popup U+3143: "ㅃ", U+314D: "ㅍ" -->
     <Key
         latin:keySpec="&#x3142;"
-        latin:moreKeys="&#x3143;" />
-    <!-- U+3148: "ㅈ" -> popup U+3149: "ㅉ" -->
+        latin:moreKeys="&#x3143;,&#x314D;" />
+    <!-- U+3148: "ㅈ" -> popup U+3149: "ㅉ", U+314A: "ㅊ" -->
     <Key
         latin:keySpec="&#x3148;"
-        latin:moreKeys="&#x3149;" />
-    <!-- U+3137: "ㄷ" -> popup U+3138: "ㄸ" -->
+        latin:moreKeys="&#x3149;,&#x314A;" />
+    <!-- U+3137: "ㄷ" -> popup U+3138: "ㄸ", U+314C: "ㅌ" -->
     <Key
         latin:keySpec="&#x3137;"
-        latin:moreKeys="&#x3138;" />
-    <!-- U+3131: "ㄱ" -> popup U+3132: "ㄲ" -->
+        latin:moreKeys="&#x3138;,&#x314C;" />
+    <!-- U+3131: "ㄱ" -> popup U+3132: "ㄲ", U+314B: "ㅋ" -->
     <Key
         latin:keySpec="&#x3131;"
-        latin:moreKeys="&#x3132;" />
+        latin:moreKeys="&#x3132;,&#x314B;" />
     <!-- U+3145: "ㅅ" -> popup U+3146: "ㅆ" -->
     <Key
         latin:keySpec="&#x3145;"
         latin:moreKeys="&#x3146;" />
-    <!-- U+315B: "ㅛ" -->
+    <!-- U+315B: "ㅛ" -> popup U+3157: "ㅗ" -->
     <Key
-        latin:keySpec="&#x315B;" />
-    <!-- U+3155: "ㅕ" -->
+        latin:keySpec="&#x315B;"
+        latin:moreKeys="&#x3157;" />
+    <!-- U+3155: "ㅕ" -> popup U+3153: "ㅓ", U+3156: "ㅖ" -->
     <Key
-        latin:keySpec="&#x3155;" />
-    <!-- U+3151: "ㅑ" -->
+        latin:keySpec="&#x3155;"
+        latin:moreKeys="&#x3153;,&#x3156;" />
+    <!-- U+3151: "ㅑ" -> popup U+314F: "ㅏ", U+3152: "ㅒ" -->
     <Key
-        latin:keySpec="&#x3151;" />
-    <!-- U+3150: "ㅐ" -->
+        latin:keySpec="&#x3151;"
+        latin:moreKeys="&#x314F;,&#x3152;" />
+    <!-- U+3150: "ㅐ" -> popup U+3152: "ㅒ" -->
     <Key
-        latin:keySpec="&#x3150;" />
-    <!-- U+3154: "ㅔ" -->
+        latin:keySpec="&#x3150;"
+        latin:moreKeys="&#x3152;" />
+    <!-- U+3154: "ㅔ" -> popup U+3156: "ㅖ" -->
     <Key
-        latin:keySpec="&#x3154;" />
+        latin:keySpec="&#x3154;"
+        latin:moreKeys="&#x3156;" />
 </merge>

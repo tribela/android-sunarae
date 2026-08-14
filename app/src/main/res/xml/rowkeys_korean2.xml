@@ -28,27 +28,32 @@
     <!-- U+3141: "ㅁ" -->
     <Key
         latin:keySpec="&#x3141;" />
-    <!-- U+3134: "ㄴ" -->
+    <!-- U+3134: "ㄴ" -> popup U+3136: "ㄶ", U+3135: "ㄵ" -->
     <Key
-        latin:keySpec="&#x3134;" />
+        latin:keySpec="&#x3134;"
+        latin:moreKeys="&#x3136;,&#x3135;" />
     <!-- U+3147: "ㅇ" -->
     <Key
         latin:keySpec="&#x3147;" />
-    <!-- U+3139: "ㄹ" -->
+    <!-- U+3139: "ㄹ" -> popup U+313A: "ㄺ", U+313B: "ㄻ", U+313C: "ㄼ", U+313D: "ㄽ", U+313E: "ㄾ", U+313F: "ㄿ", U+3140: "ㅀ" -->
     <Key
-        latin:keySpec="&#x3139;" />
+        latin:keySpec="&#x3139;"
+        latin:moreKeys="&#x313A;,&#x313B;,&#x313C;,&#x313D;,&#x313E;,&#x313F;,&#x3140;" />
     <!-- U+314E: "ㅎ" -->
     <Key
         latin:keySpec="&#x314E;" />
-    <!-- U+3157: "ㅗ" -->
+    <!-- U+3157: "ㅗ" -> popup U+315B: "ㅛ" -->
     <Key
-        latin:keySpec="&#x3157;" />
-    <!-- U+3153: "ㅓ" -->
+        latin:keySpec="&#x3157;"
+        latin:moreKeys="&#x315B;" />
+    <!-- U+3153: "ㅓ" -> popup U+3155: "ㅕ" -->
     <Key
-        latin:keySpec="&#x3153;" />
-    <!-- U+314F: "ㅏ" -->
+        latin:keySpec="&#x3153;"
+        latin:moreKeys="&#x3155;" />
+    <!-- U+314F: "ㅏ" -> popup U+3151: "ㅑ" -->
     <Key
-        latin:keySpec="&#x314F;" />
+        latin:keySpec="&#x314F;"
+        latin:moreKeys="&#x3151;" />
     <!-- U+3163: "ㅣ" -->
     <Key
         latin:keySpec="&#x3163;" />
