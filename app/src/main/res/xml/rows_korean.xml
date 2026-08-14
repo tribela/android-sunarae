@@ -18,8 +18,10 @@
 */
 -->
 
-<!-- Ortholinear grid: all jamo rows use keyWidth="10%p" left-aligned (no keyXPos).
-     Standard Dubeolsik 10-9-7 arrangement. No shift/delete flanking keys. -->
+<!-- Standard Dubeolsik 10-9-7 arrangement with physical-keyboard stagger:
+     2nd row shifted right by 5%, 3rd row by 10%, so the vowel keys (ㅛㅕㅑㅐㅔ,
+     ㅗㅓㅏㅣ, ㅠㅜㅡ) sit under the right hand. No shift key (noshift rules),
+     but a delete key flanks the 3rd row on the right. -->
 
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
     <Row
@@ -32,13 +34,19 @@
         latin:keyWidth="10%p"
     >
         <include
+            latin:keyXPos="5%p"
             latin:keyboardLayout="@xml/rowkeys_korean2" />
     </Row>
     <Row
         latin:keyWidth="10%p"
     >
         <include
+            latin:keyXPos="10%p"
             latin:keyboardLayout="@xml/rowkeys_korean3" />
+        <Key
+            latin:keyStyle="deleteKeyStyle"
+            latin:keyXPos="80%p"
+            latin:keyWidth="20%p" />
     </Row>
     <include
         latin:keyboardLayout="@xml/row_korean_bottom" />
