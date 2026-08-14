@@ -46,46 +46,46 @@
                 latin:keySpec="&#x3148;"
                 latin:keyHintLabel="`"
                 latin:moreKeys="`,&#x3149;" />
-            <!-- U+3137: "ㄷ" -> hint "!", popup "!", U+3138: "ㄸ" -->
+            <!-- U+3137: "ㄷ" -> hint "&lt;", popup "&lt;", U+3138: "ㄸ" -->
             <Key
                 latin:keySpec="&#x3137;"
-                latin:keyHintLabel="!"
-                latin:moreKeys="!,&#x3138;" />
-            <!-- U+3131: "ㄱ" -> hint "?", popup "?", U+3132: "ㄲ" (!text/keyspec_symbols_question for ?) -->
+                latin:keyHintLabel="&lt;"
+                latin:moreKeys="&lt;,&#x3138;" />
+            <!-- U+3131: "ㄱ" -> hint "&gt;", popup "&gt;", U+3132: "ㄲ" -->
             <Key
                 latin:keySpec="&#x3131;"
-                latin:keyHintLabel="!text/keyspec_symbols_question"
-                latin:moreKeys="!text/keyspec_symbols_question,&#x3132;" />
-            <!-- U+3145: "ㅅ" -> hint "^", popup "^", U+3146: "ㅆ" -->
+                latin:keyHintLabel="&gt;"
+                latin:moreKeys="&gt;,&#x3132;" />
+            <!-- U+3145: "ㅅ" -> hint "&amp;", popup "&amp;", U+3146: "ㅆ" -->
             <Key
                 latin:keySpec="&#x3145;"
-                latin:keyHintLabel="^"
-                latin:moreKeys="^,&#x3146;" />
-            <!-- U+315B: "ㅛ" -> hint "{", popup "{" -->
+                latin:keyHintLabel="&amp;"
+                latin:moreKeys="&amp;,&#x3146;" />
+            <!-- U+315B: "ㅛ" -> hint "*", popup "*" -->
             <Key
                 latin:keySpec="&#x315B;"
-                latin:keyHintLabel="{"
-                latin:moreKeys="{" />
-            <!-- U+3155: "ㅕ" -> hint "}", popup "}" -->
+                latin:keyHintLabel="*"
+                latin:moreKeys="*" />
+            <!-- U+3155: "ㅕ" -> hint "[", popup "[" -->
             <Key
                 latin:keySpec="&#x3155;"
-                latin:keyHintLabel="}"
-                latin:moreKeys="}" />
-            <!-- U+3151: "ㅑ" -> hint "[", popup "[" -->
-            <Key
-                latin:keySpec="&#x3151;"
                 latin:keyHintLabel="["
                 latin:moreKeys="[" />
-            <!-- U+3150: "ㅐ" -> hint "]", popup "]" -->
+            <!-- U+3151: "ㅑ" -> hint "]", popup "]" -->
             <Key
-                latin:keySpec="&#x3150;"
+                latin:keySpec="&#x3151;"
                 latin:keyHintLabel="]"
                 latin:moreKeys="]" />
-            <!-- U+3154: "ㅔ" -> hint "|", popup "|" -->
+            <!-- U+3150: "ㅐ" -> hint "(", popup "(" -->
+            <Key
+                latin:keySpec="&#x3150;"
+                latin:keyHintLabel="("
+                latin:moreKeys="(" />
+            <!-- U+3154: "ㅔ" -> hint ")", popup ")" -->
             <Key
                 latin:keySpec="&#x3154;"
-                latin:keyHintLabel="|"
-                latin:moreKeys="|" />
+                latin:keyHintLabel=")"
+                latin:moreKeys=")" />
         </case>
         <default>
             <!-- Number row OFF: AOSP/Gboard style digit popups (1-0) -->

@@ -26,39 +26,39 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <!-- U+314B: "ㅋ" -> hint "*", popup "*" -->
+    <!-- U+314B: "ㅋ" -> hint '"', popup '"' -->
     <Key
         latin:keySpec="&#x314B;"
-        latin:keyHintLabel="*"
-        latin:moreKeys="*" />
-    <!-- U+314C: "ㅌ" -> hint '"', popup '"' -->
-    <Key
-        latin:keySpec="&#x314C;"
         latin:keyHintLabel="&quot;"
         latin:moreKeys="&quot;" />
-    <!-- U+314A: "ㅊ" -> hint "'", popup "'" -->
+    <!-- U+314C: "ㅌ" -> hint "'", popup "'" -->
     <Key
-        latin:keySpec="&#x314A;"
+        latin:keySpec="&#x314C;"
         latin:keyHintLabel="'"
         latin:moreKeys="'" />
-    <!-- U+314D: "ㅍ" -> hint ";", popup ";" -->
+    <!-- U+314A: "ㅊ" -> hint ":", popup ":" -->
     <Key
-        latin:keySpec="&#x314D;"
-        latin:keyHintLabel=";"
-        latin:moreKeys=";" />
-    <!-- U+3160: "ㅠ" -> hint ":", popup ":" -->
-    <Key
-        latin:keySpec="&#x3160;"
+        latin:keySpec="&#x314A;"
         latin:keyHintLabel=":"
         latin:moreKeys=":" />
-    <!-- U+315C: "ㅜ" -> hint ",", popup punctuation incl. "," (morekeys_punctuation has escaped comma) -->
+    <!-- U+314D: "ㅍ" -> hint "/", popup "/" -->
+    <Key
+        latin:keySpec="&#x314D;"
+        latin:keyHintLabel="/"
+        latin:moreKeys="/" />
+    <!-- U+3160: "ㅠ" -> hint "|", popup "|" -->
+    <Key
+        latin:keySpec="&#x3160;"
+        latin:keyHintLabel="|"
+        latin:moreKeys="|" />
+    <!-- U+315C: "ㅜ" -> hint "!", popup "!" -->
     <Key
         latin:keySpec="&#x315C;"
-        latin:keyHintLabel="!text/keyspec_comma"
-        latin:moreKeys="!text/morekeys_punctuation" />
-    <!-- U+3161: "ㅡ" -> hint ".", popup "." -->
+        latin:keyHintLabel="!"
+        latin:moreKeys="!" />
+    <!-- U+3161: "ㅡ" -> hint "?", popup "?" (!text/keyspec_symbols_question for ?) -->
     <Key
         latin:keySpec="&#x3161;"
-        latin:keyHintLabel="."
-        latin:moreKeys="." />
+        latin:keyHintLabel="!text/keyspec_symbols_question"
+        latin:moreKeys="!text/keyspec_symbols_question" />
 </merge>

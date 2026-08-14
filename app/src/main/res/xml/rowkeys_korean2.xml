@@ -47,29 +47,29 @@
         latin:keySpec="&#x3139;"
         latin:keyHintLabel="!text/keyspec_symbols_percent"
         latin:moreKeys="!text/keyspec_symbols_percent" />
-    <!-- U+314E: "ㅎ" -> hint "&", popup "&" -->
+    <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
     <Key
         latin:keySpec="&#x314E;"
-        latin:keyHintLabel="&amp;"
-        latin:moreKeys="&amp;" />
-    <!-- U+3157: "ㅗ" -> hint "-", popup "-", "_" (&#x5F; = underscore) -->
+        latin:keyHintLabel="^"
+        latin:moreKeys="^" />
+    <!-- U+3157: "ㅗ" -> hint "_", popup "_" (&#x5F; = underscore) -->
     <Key
         latin:keySpec="&#x3157;"
-        latin:keyHintLabel="-"
-        latin:moreKeys="-,\&#x5F;" />
-    <!-- U+3153: "ㅓ" -> hint "+", popup "+" -->
+        latin:keyHintLabel="&#x5F;"
+        latin:moreKeys="&#x5F;" />
+    <!-- U+3153: "ㅓ" -> hint "-", popup "-" -->
     <Key
         latin:keySpec="&#x3153;"
-        latin:keyHintLabel="+"
-        latin:moreKeys="+" />
-    <!-- U+314F: "ㅏ" -> hint "(", popup "(" -->
+        latin:keyHintLabel="-"
+        latin:moreKeys="-" />
+    <!-- U+314F: "ㅏ" -> hint "+", popup "+" -->
     <Key
         latin:keySpec="&#x314F;"
-        latin:keyHintLabel="("
-        latin:moreKeys="(" />
-    <!-- U+3163: "ㅣ" -> hint ")", popup ")" -->
+        latin:keyHintLabel="+"
+        latin:moreKeys="+" />
+    <!-- U+3163: "ㅣ" -> hint "=", popup "=" -->
     <Key
         latin:keySpec="&#x3163;"
-        latin:keyHintLabel=")"
-        latin:moreKeys=")" />
+        latin:keyHintLabel="="
+        latin:moreKeys="=" />
 </merge>
