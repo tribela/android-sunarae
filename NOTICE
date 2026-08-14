@@ -1,0 +1,26 @@
+This project ("순아래 키보드 (두벌식 순아래)" / Noshift Keyboard) is a fork of:
+
+    Simple Keyboard
+    Copyright (C) 2017-2025 Raimondas Rimkus (rkkr)
+    https://github.com/rkkr/simple-keyboard
+    Licensed under the Apache License, Version 2.0
+
+Simple Keyboard is itself derived from AOSP LatinIME:
+
+    AOSP LatinIME
+    Copyright (C) 2008-2015 The Android Open Source Project
+    https://android.googlesource.com/platform/packages/inputmethods/LatinIME/
+    Licensed under the Apache License, Version 2.0
+
+The source files in this repository carry the copyright notices of their
+respective original authors (The Android Open Source Project, Raimondas
+Rimkus, and other contributors) as preserved from the upstream projects.
+
+The upstream Simple Keyboard source code is distributed under the terms of
+the Apache License, Version 2.0. A copy of that license is provided in the
+LICENSE file.
+
+The original modifications made by this project (the Hangul input engine,
+Korean keyboard layouts, and related work) are Copyright (C) 2026 Jeong Arm.
+All rights reserved. They are not licensed under the Apache License, Version
+2.0.
