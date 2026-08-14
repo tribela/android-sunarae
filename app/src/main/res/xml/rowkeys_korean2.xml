@@ -19,42 +19,57 @@
 -->
 
 <!-- Dubeolsik row 2: ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys).
-     Compound vowels (ㅘㅙㅚㅝㅞㅟㅢ) are produced by the noshift combiner
-     from vowel sequences, so no popups are needed here. -->
+     Long-press popups mirror the AOSP/Gboard English keyboard special
+     characters on the physical QWERTY positions (A->@, S->#, D->$, F->%,
+     G->&, H->-, J->+, K->(, L->)). Compound vowels are produced by the
+     noshift combiner from vowel sequences, so no vowel popups are needed. -->
 
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <!-- U+3141: "ㅁ" -->
+    <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
     <Key
-        latin:keySpec="&#x3141;" />
-    <!-- U+3134: "ㄴ" -> popup U+3136: "ㄶ", U+3135: "ㄵ" -->
+        latin:keySpec="&#x3141;"
+        latin:keyHintLabel="\@"
+        latin:moreKeys="\@" />
+    <!-- U+3134: "ㄴ" -> hint "#", popup "#" -->
     <Key
         latin:keySpec="&#x3134;"
-        latin:moreKeys="&#x3136;,&#x3135;" />
-    <!-- U+3147: "ㅇ" -->
+        latin:keyHintLabel="\#"
+        latin:moreKeys="\#" />
+    <!-- U+3147: "ㅇ" -> hint "$", popup "$" -->
     <Key
-        latin:keySpec="&#x3147;" />
-    <!-- U+3139: "ㄹ" -> popup U+313A: "ㄺ", U+313B: "ㄻ", U+313C: "ㄼ", U+313D: "ㄽ", U+313E: "ㄾ", U+313F: "ㄿ", U+3140: "ㅀ" -->
+        latin:keySpec="&#x3147;"
+        latin:keyHintLabel="\$"
+        latin:moreKeys="\$" />
+    <!-- U+3139: "ㄹ" -> hint "%", popup "%" -->
     <Key
         latin:keySpec="&#x3139;"
-        latin:moreKeys="&#x313A;,&#x313B;,&#x313C;,&#x313D;,&#x313E;,&#x313F;,&#x3140;" />
-    <!-- U+314E: "ㅎ" -->
+        latin:keyHintLabel="\%"
+        latin:moreKeys="\%" />
+    <!-- U+314E: "ㅎ" -> hint "&", popup "&" -->
     <Key
-        latin:keySpec="&#x314E;" />
-    <!-- U+3157: "ㅗ" -> popup U+315B: "ㅛ" -->
+        latin:keySpec="&#x314E;"
+        latin:keyHintLabel="&amp;"
+        latin:moreKeys="&amp;" />
+    <!-- U+3157: "ㅗ" -> hint "-", popup "-", "_" -->
     <Key
         latin:keySpec="&#x3157;"
-        latin:moreKeys="&#x315B;" />
-    <!-- U+3153: "ㅓ" -> popup U+3155: "ㅕ" -->
+        latin:keyHintLabel="-"
+        latin:moreKeys="-,_" />
+    <!-- U+3153: "ㅓ" -> hint "+", popup "+" -->
     <Key
         latin:keySpec="&#x3153;"
-        latin:moreKeys="&#x3155;" />
-    <!-- U+314F: "ㅏ" -> popup U+3151: "ㅑ" -->
+        latin:keyHintLabel="+"
+        latin:moreKeys="+" />
+    <!-- U+314F: "ㅏ" -> hint "(", popup "(" -->
     <Key
         latin:keySpec="&#x314F;"
-        latin:moreKeys="&#x3151;" />
-    <!-- U+3163: "ㅣ" -->
+        latin:keyHintLabel="("
+        latin:moreKeys="(" />
+    <!-- U+3163: "ㅣ" -> hint ")", popup ")" -->
     <Key
-        latin:keySpec="&#x3163;" />
+        latin:keySpec="&#x3163;"
+        latin:keyHintLabel=")"
+        latin:moreKeys=")" />
 </merge>

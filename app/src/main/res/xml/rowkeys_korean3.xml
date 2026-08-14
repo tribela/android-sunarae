@@ -18,36 +18,47 @@
 */
 -->
 
-<!-- Dubeolsik row 3: ㅋㅌㅊㅍㅠㅜㅡ (7 keys). -->
+<!-- Dubeolsik row 3: ㅋㅌㅊㅍㅠㅜㅡ (7 keys).
+     Long-press popups mirror the AOSP/Gboard English keyboard special
+     characters on the physical QWERTY positions (Z->*, X->", C->', V->;,
+     B->:, N->,, M->.). -->
 
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <!-- U+314B: "ㅋ" -> popup U+3131: "ㄱ" -->
+    <!-- U+314B: "ㅋ" -> hint "*", popup "*" -->
     <Key
         latin:keySpec="&#x314B;"
-        latin:moreKeys="&#x3131;" />
-    <!-- U+314C: "ㅌ" -> popup U+3137: "ㄷ" -->
+        latin:keyHintLabel="*"
+        latin:moreKeys="*" />
+    <!-- U+314C: "ㅌ" -> hint '"', popup '"' -->
     <Key
         latin:keySpec="&#x314C;"
-        latin:moreKeys="&#x3137;" />
-    <!-- U+314A: "ㅊ" -> popup U+3148: "ㅈ" -->
+        latin:keyHintLabel="&quot;"
+        latin:moreKeys="&quot;" />
+    <!-- U+314A: "ㅊ" -> hint "'", popup "'" -->
     <Key
         latin:keySpec="&#x314A;"
-        latin:moreKeys="&#x3148;" />
-    <!-- U+314D: "ㅍ" -> popup U+3142: "ㅂ" -->
+        latin:keyHintLabel="'"
+        latin:moreKeys="'" />
+    <!-- U+314D: "ㅍ" -> hint ";", popup ";" -->
     <Key
         latin:keySpec="&#x314D;"
-        latin:moreKeys="&#x3142;" />
-    <!-- U+3160: "ㅠ" -> popup U+315C: "ㅜ" -->
+        latin:keyHintLabel=";"
+        latin:moreKeys=";" />
+    <!-- U+3160: "ㅠ" -> hint ":", popup ":" -->
     <Key
         latin:keySpec="&#x3160;"
-        latin:moreKeys="&#x315C;" />
-    <!-- U+315C: "ㅜ" -> popup U+3160: "ㅠ" -->
+        latin:keyHintLabel=":"
+        latin:moreKeys=":" />
+    <!-- U+315C: "ㅜ" -> hint ",", popup "," -->
     <Key
         latin:keySpec="&#x315C;"
-        latin:moreKeys="&#x3160;" />
-    <!-- U+3161: "ㅡ" -->
+        latin:keyHintLabel="\,"
+        latin:moreKeys="\," />
+    <!-- U+3161: "ㅡ" -> hint ".", popup "." -->
     <Key
-        latin:keySpec="&#x3161;" />
+        latin:keySpec="&#x3161;"
+        latin:keyHintLabel="."
+        latin:moreKeys="." />
 </merge>
