@@ -56,9 +56,9 @@
         latin:keySpec="&#x315C;"
         latin:keyHintLabel="!"
         latin:moreKeys="!" />
-    <!-- U+3161: "ㅡ" -> hint "?", popup "?" (!text/keyspec_symbols_question for ?) -->
+    <!-- U+3161: "ㅡ" -> hint "?", popup "?" (\? escaped, as in rkkr keys_exclamation_question.xml) -->
     <Key
         latin:keySpec="&#x3161;"
-        latin:keyHintLabel="!text/keyspec_symbols_question"
-        latin:moreKeys="!text/keyspec_symbols_question" />
+        latin:keyHintLabel="\?"
+        latin:moreKeys="\?" />
 </merge>

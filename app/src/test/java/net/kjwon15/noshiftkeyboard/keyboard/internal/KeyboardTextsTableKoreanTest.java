@@ -73,4 +73,25 @@ public class KeyboardTextsTableKoreanTest {
         final String[] split = MoreKeySpec.splitKeySpecs(",");
         assertNull(split);
     }
+
+    @Test
+    public void percentIsMarkerAndConsumedByInsertAdditionalMoreKeys() {
+        // "%" is the ADDITIONAL_MORE_KEY_MARKER; with no additionalMoreKeys it is dropped
+        final String[] moreKeys = MoreKeySpec.splitKeySpecs("%");
+        assertNotNull(moreKeys);
+        final String[] result = MoreKeySpec.insertAdditionalMoreKeys(moreKeys, null);
+        assertTrue("bare % marker should be consumed", result == null || result.length == 0);
+    }
+
+    @Test
+    public void escapedPercentSurvivesInsertAndResolvesToPercent() {
+        // "\\%" is not the marker; splitKeySpecs keeps it, insert keeps it, getLabel -> "%"
+        final String[] split = MoreKeySpec.splitKeySpecs("\\%");
+        assertNotNull(split);
+        assertEquals(1, split.length);
+        final String[] result = MoreKeySpec.insertAdditionalMoreKeys(split, null);
+        assertNotNull(result);
+        assertEquals(1, result.length);
+        assertEquals("%", KeySpecParser.getLabel(result[0]));
+    }
 }

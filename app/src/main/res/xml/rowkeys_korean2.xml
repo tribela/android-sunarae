@@ -42,11 +42,11 @@
         latin:keySpec="&#x3147;"
         latin:keyHintLabel="\$"
         latin:moreKeys="\$" />
-    <!-- U+3139: "ㄹ" -> hint "%", popup "%" (!text/keyspec_symbols_percent for %) -->
+    <!-- U+3139: "ㄹ" -> hint "%" (direct), popup "%" (\\% escaped: bare % is the additionalMoreKeys marker) -->
     <Key
         latin:keySpec="&#x3139;"
-        latin:keyHintLabel="!text/keyspec_symbols_percent"
-        latin:moreKeys="!text/keyspec_symbols_percent" />
+        latin:keyHintLabel="%"
+        latin:moreKeys="\\%" />
     <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
     <Key
         latin:keySpec="&#x314E;"
