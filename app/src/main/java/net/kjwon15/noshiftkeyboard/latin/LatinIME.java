@@ -625,6 +625,23 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
                 mRichImm.getCurrentSubtype().getKeyboardLayoutSet());
     }
 
+    /**
+     * Whether the current subtype uses a Korean keyboard layout. Korean jamo input is routed to
+     * the Hangul combiner in {@link InputLogic} only while this is true.
+     */
+    public boolean isKoreanLayout() {
+        try {
+            if (mRichImm == null) {
+                return false;
+            }
+            final String layoutSet = mRichImm.getCurrentSubtype().getKeyboardLayoutSet();
+            return layoutSet != null
+                    && layoutSet.toLowerCase(Locale.ROOT).contains("korean");
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
     int getCurrentRecapitalizeState() {
         return mInputLogic.getCurrentRecapitalizeState();
     }

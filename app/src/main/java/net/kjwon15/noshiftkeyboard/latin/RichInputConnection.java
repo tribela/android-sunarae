@@ -75,6 +75,16 @@ public final class RichInputConnection {
     private String mTextAfterCursor = "";
     private String mTextSelection = "";
 
+    /**
+     * The currently active composing text, or null when not composing.
+     *
+     * <p>Only used to keep {@link #mTextBeforeCursor} and the expected selection caches
+     * consistent with {@link #setComposingText(CharSequence, int)} /
+     * {@link #finishComposingText()} updates. {@code null} in all pre-existing paths (rkkr never
+     * used composing text), so the original {@link #commitText} behavior is preserved exactly.</p>
+     */
+    private CharSequence mComposingText;
+
     private final LatinIME mLatinIME;
     private InputConnection mIC;
     private int mNestLevel;
@@ -244,6 +254,20 @@ public final class RichInputConnection {
      */
     public void commitText(final CharSequence text, final int newCursorPosition) {
         RichInputMethodManager.getInstance().resetSubtypeCycleOrder();
+        if (mComposingText != null && mComposingText.length() > 0) {
+            // The active composing text is already accounted for in mTextBeforeCursor and
+            // the expected selection. Committing over it must not double-count.
+            final int composingLength = mComposingText.length();
+            if (mTextBeforeCursor.length() >= composingLength) {
+                mTextBeforeCursor = mTextBeforeCursor.substring(0,
+                        mTextBeforeCursor.length() - composingLength);
+            }
+            if (mExpectedSelStart != INVALID_CURSOR_POSITION) {
+                mExpectedSelStart -= composingLength;
+                mExpectedSelEnd = mExpectedSelStart;
+            }
+            mComposingText = null;
+        }
         mTextBeforeCursor += text;
         // TODO: the following is exceedingly error-prone. Right now when the cursor is in the
         // middle of the composing word mComposingText only holds the part of the composing text
@@ -254,6 +278,50 @@ public final class RichInputConnection {
         }
         if (isConnected()) {
             mIC.commitText(text, newCursorPosition);
+        }
+    }
+
+    /**
+     * Calls {@link InputConnection#setComposingText(CharSequence, int)}.
+     *
+     * The composing text replaces the current composing region at the cursor, so the cached
+     * text-before-cursor and expected selection are adjusted accordingly.
+     *
+     * @param text The composing text.
+     * @param newCursorPosition The new cursor position around the text.
+     */
+    public void setComposingText(final CharSequence text, final int newCursorPosition) {
+        if (mComposingText != null && mComposingText.length() > 0) {
+            final int composingLength = mComposingText.length();
+            if (mTextBeforeCursor.length() >= composingLength) {
+                mTextBeforeCursor = mTextBeforeCursor.substring(0,
+                        mTextBeforeCursor.length() - composingLength);
+            }
+            if (mExpectedSelStart != INVALID_CURSOR_POSITION) {
+                mExpectedSelStart -= composingLength;
+                mExpectedSelEnd = mExpectedSelStart;
+            }
+        }
+        mComposingText = text;
+        if (mComposingText != null && mComposingText.length() > 0) {
+            mTextBeforeCursor += mComposingText;
+            if (mExpectedSelStart != INVALID_CURSOR_POSITION) {
+                mExpectedSelStart += mComposingText.length();
+                mExpectedSelEnd = mExpectedSelStart;
+            }
+        }
+        if (isConnected()) {
+            mIC.setComposingText(text, newCursorPosition);
+        }
+    }
+
+    /**
+     * Calls {@link InputConnection#finishComposingText()}, committing the current composing text.
+     */
+    public void finishComposingText() {
+        mComposingText = null;
+        if (isConnected()) {
+            mIC.finishComposingText();
         }
     }
 

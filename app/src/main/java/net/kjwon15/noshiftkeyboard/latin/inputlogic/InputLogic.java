@@ -29,6 +29,7 @@ import android.view.inputmethod.EditorInfo;
 
 import net.kjwon15.noshiftkeyboard.event.Event;
 import net.kjwon15.noshiftkeyboard.event.InputTransaction;
+import net.kjwon15.noshiftkeyboard.hangul.HangulCombiner;
 import net.kjwon15.noshiftkeyboard.latin.LatinIME;
 import net.kjwon15.noshiftkeyboard.latin.RichInputConnection;
 import net.kjwon15.noshiftkeyboard.latin.common.Constants;
@@ -50,6 +51,19 @@ public final class InputLogic {
     private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
     /**
+     * Hangul jamo combiner for Korean layouts. Jamo code points are routed here instead of being
+     * committed directly; {@link #mConnection#setComposingText} shows the composition in progress
+     * and it is finalized with {@link #mConnection#finishComposingText()} when a non-jamo key is
+     * pressed. Only active while {@link #mIsKoreanLayout} is true.
+     */
+    private final HangulCombiner mHangulCombiner = new HangulCombiner();
+    /**
+     * Whether the current keyboard layout is a Korean layout. Set from the current subtype's
+     * keyboard layout set; see {@link LatinIME#isKoreanLayout()}.
+     */
+    private boolean mIsKoreanLayout = false;
+
+    /**
      * Create a new instance of the input logic.
      * @param latinIME the instance of the parent LatinIME. We should remove this when we can.
      * dictionary.
@@ -66,6 +80,8 @@ public final class InputLogic {
      */
     public void startInput() {
         mRecapitalizeStatus.disable(); // Do not perform recapitalize until the cursor is moved once
+        mHangulCombiner.reset();
+        updateKoreanLayoutState();
     }
 
     public void clearCaches() {
@@ -77,6 +93,25 @@ public final class InputLogic {
      */
     public void onSubtypeChanged() {
         startInput();
+    }
+
+    /** Refresh {@link #mIsKoreanLayout} from the current subtype's keyboard layout. */
+    private void updateKoreanLayoutState() {
+        mIsKoreanLayout = mLatinIME.isKoreanLayout();
+    }
+
+    /** Whether a Hangul composition is currently in progress. */
+    private boolean isComposing() {
+        return mIsKoreanLayout && mHangulCombiner.combiningStateFeedback().length() > 0;
+    }
+
+    /**
+     * Finalize the current Hangul composition to the editor and clear the combiner state.
+     * Must only be called while {@link #isComposing()}.
+     */
+    private void commitComposingText() {
+        mConnection.finishComposingText();
+        mHangulCombiner.reset();
     }
 
     /**
@@ -198,21 +233,41 @@ public final class InputLogic {
                 // {@link #onPressKey(int,int,boolean)} and {@link #onReleaseKey(int,boolean)}.
                 break;
             case Constants.CODE_SETTINGS:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 onSettingsKeyPressed();
                 break;
             case Constants.CODE_PASTE:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 mConnection.pasteClipboard();
                 break;
             case Constants.CODE_ACTION_NEXT:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 performEditorAction(EditorInfo.IME_ACTION_NEXT);
                 break;
             case Constants.CODE_ACTION_PREVIOUS:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 performEditorAction(EditorInfo.IME_ACTION_PREVIOUS);
                 break;
             case Constants.CODE_LANGUAGE_SWITCH:
+                if (isComposing()) {
+                    // Finalize the composition so the composing text is committed before the
+                    // subtype change (avoids the composing text being dropped on layout switch).
+                    commitComposingText();
+                }
                 handleLanguageSwitchKey();
                 break;
             case Constants.CODE_SHIFT_ENTER:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 sendDownUpKeyEvent(KeyEvent.KEYCODE_ENTER, KeyEvent.META_SHIFT_ON);
                 // Shift + Enter is not supported in all devices
                 break;
@@ -234,6 +289,9 @@ public final class InputLogic {
             final InputTransaction inputTransaction) {
         switch (event.mCodePoint) {
             case Constants.CODE_ENTER:
+                if (isComposing()) {
+                    commitComposingText();
+                }
                 final EditorInfo editorInfo = getCurrentInputEditorInfo();
                 final int imeOptionsActionId =
                         InputTypeUtils.getImeOptionsActionIdFromEditorInfo(editorInfo);
@@ -276,6 +334,11 @@ public final class InputLogic {
     private void handleNonSpecialCharacterEvent(final Event event,
             final InputTransaction inputTransaction) {
         final int codePoint = event.mCodePoint;
+        // Any non-jamo input finalizes a pending Hangul composition first (space, punctuation,
+        // symbols, etc.). Jamo keys pass through to {@link #sendKeyCodePoint}.
+        if (isComposing() && !HangulCombiner.isHangul(codePoint)) {
+            commitComposingText();
+        }
         if (inputTransaction.mSettingsValues.isWordSeparator(codePoint)
                 || Character.getType(codePoint) == Character.OTHER_SYMBOL) {
             handleSeparatorEvent(event, inputTransaction);
@@ -320,6 +383,20 @@ public final class InputLogic {
                 event.isKeyRepeat() && mConnection.getExpectedSelectionStart() > 0
                 ? InputTransaction.SHIFT_UPDATE_LATER : InputTransaction.SHIFT_UPDATE_NOW;
         inputTransaction.requireShiftUpdate(shiftUpdateKind);
+
+        // While a Hangul composition is in progress, backspace undoes one jamo at a time
+        // (까 -> 가 -> ㄱ -> nothing).
+        if (isComposing()) {
+            final String after = mHangulCombiner.processDelete();
+            if (after.length() == 0) {
+                // The whole composition was undone: clear the composing region entirely instead
+                // of finishing it, which would wrongly commit the remaining composing text.
+                mConnection.setComposingText("", 1);
+            } else {
+                mConnection.setComposingText(after, 1);
+            }
+            return;
+        }
 
         if (mConnection.hasSelection()) {
             mConnection.deleteSelectedText();
@@ -518,6 +595,18 @@ public final class InputLogic {
      */
     // TODO: replace these two parameters with an InputTransaction
     private void sendKeyCodePoint(final int codePoint) {
+        // In a Korean layout, jamo code points are fed to the Hangul combiner and displayed as
+        // composing text instead of being committed directly.
+        if (mIsKoreanLayout && HangulCombiner.isHangul(codePoint)) {
+            mConnection.setComposingText(mHangulCombiner.process(codePoint), 1);
+            return;
+        }
+
+        // Anything that is not a jamo finalizes a pending Hangul composition first.
+        if (isComposing()) {
+            commitComposingText();
+        }
+
         // TODO: Remove this special handling of digit letters.
         // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
         if (codePoint >= '0' && codePoint <= '9') {
