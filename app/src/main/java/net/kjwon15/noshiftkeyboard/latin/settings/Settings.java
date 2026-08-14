@@ -240,7 +240,7 @@ public final class Settings extends BroadcastReceiver implements SharedPreferenc
     }
 
     public static boolean readShowNumberRow(final SharedPreferences prefs) {
-        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
+        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, true);
     }
 
     public static boolean readSpaceSwipeEnabled(final SharedPreferences prefs) {
