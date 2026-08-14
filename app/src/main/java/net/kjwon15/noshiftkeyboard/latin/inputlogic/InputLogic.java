@@ -532,6 +532,8 @@ public final class InputLogic {
             case SubtypeLocaleUtils.LAYOUT_MARATHI:
             case SubtypeLocaleUtils.LAYOUT_NEPALI_ROMANIZED:
             case SubtypeLocaleUtils.LAYOUT_NEPALI_TRADITIONAL:
+            case SubtypeLocaleUtils.LAYOUT_NOSHIFT:
+            case SubtypeLocaleUtils.LAYOUT_NOSHIFT_WIDE:
             case SubtypeLocaleUtils.LAYOUT_TAMIL:
             case SubtypeLocaleUtils.LAYOUT_TELUGU:
             case SubtypeLocaleUtils.LAYOUT_THAI:
