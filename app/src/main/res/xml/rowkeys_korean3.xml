@@ -51,11 +51,11 @@
         latin:keySpec="&#x3160;"
         latin:keyHintLabel=":"
         latin:moreKeys=":" />
-    <!-- U+315C: "ㅜ" -> hint ",", popup "," -->
+    <!-- U+315C: "ㅜ" -> hint ",", popup punctuation incl. "," (morekeys_punctuation has escaped comma) -->
     <Key
         latin:keySpec="&#x315C;"
-        latin:keyHintLabel="\,"
-        latin:moreKeys="\," />
+        latin:keyHintLabel="!text/keyspec_comma"
+        latin:moreKeys="!text/morekeys_punctuation" />
     <!-- U+3161: "ㅡ" -> hint ".", popup "." -->
     <Key
         latin:keySpec="&#x3161;"
