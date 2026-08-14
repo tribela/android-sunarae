@@ -333,6 +333,13 @@ public final class SubtypeLocaleUtils {
             // can cycle between the Korean and English (QWERTY) layouts.
             subtypes.add(getSubtype(LOCALE_ENGLISH_UNITED_STATES, LAYOUT_QWERTY, resources));
         }
+        // This is a Korean-specific keyboard: always include Korean, pinned at the top,
+        // so the language switch key always starts from the two-bul noshift layout.
+        final Subtype korean = getSubtype(LOCALE_KOREAN, LAYOUT_NOSHIFT, resources);
+        if (korean != null) {
+            subtypes.remove(korean);
+            subtypes.add(0, korean);
+        }
         return subtypes;
     }
 

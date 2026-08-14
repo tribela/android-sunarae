@@ -62,4 +62,17 @@
     <string name="show_language_switch_key">언어 전환 키를 표시합니다</string>
     <string name="pref_use_on_screen">화면 키보드 표시</string>
     <string name="show_special_chars">특수 문자를 표시합니다</string>
+    <string name="show_number_row">숫자 행을 별도로 표시</string>
+    <string name="show_backspace_on_right">백스페이스를 오른쪽으로 이동</string>
+    <string name="space_swipe">스페이스 스와이프 커서 이동</string>
+    <string name="delete_swipe">삭제 스와이프</string>
+    <string name="subtype_bds">BDS</string>
+    <string name="subtype_q">Q</string>
+    <string name="subtype_f">F</string>
+    <string name="subtype_akkhor">Akkhor</string>
+    <string name="subtype_ergol">Ergo-L</string>
+    <string name="subtype_noshift">두벌식 순아래</string>
+    <string name="subtype_noshift_wide">순아래 넓음</string>
+    <string name="subtype_hcesar">HCESAR</string>
+    <string name="prefs_keyboard_height_settings">키보드 높이</string>
 </resources>
