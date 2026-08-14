@@ -277,6 +277,20 @@ public class HangulCombinerTest {
                 standardCombinerFeedback(java.util.Arrays.asList(0x3131, 0x314f, 0x3131, 0x3131)));
     }
 
+    @Test
+    public void standardMode_a_i_ae() {
+        // ㅏ + ㅣ = ㅐ 조합은 표준/와이드 공통 허용
+        assertEquals(java.util.Arrays.asList("ㅏ", "ㅐ"),
+                standardCombinerFeedback(java.util.Arrays.asList(0x314f, 0x3163)));
+    }
+
+    @Test
+    public void standardMode_eo_i_e() {
+        // ㅓ + ㅣ = ㅔ 조합은 표준/와이드 공통 허용
+        assertEquals(java.util.Arrays.asList("ㅓ", "ㅔ"),
+                standardCombinerFeedback(java.util.Arrays.asList(0x3153, 0x3163)));
+    }
+
     // ── 기본 조합 (표준 두벌식과 공통) ──
 
     @Test

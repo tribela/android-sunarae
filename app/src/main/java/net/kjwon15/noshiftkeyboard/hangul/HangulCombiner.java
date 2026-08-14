@@ -41,6 +41,8 @@ public final class HangulCombiner {
 
     /** 두벌식 표준 조합표. (Kotlin COMBINATION_TABLE_DUBEOLSIK, 무수정) */
     private static final Map<Long, Integer> COMBINATION_TABLE_DUBEOLSIK = combinationMap(
+            0x1161, 0x1175, 0x1162, // ㅏ + ㅣ = ㅐ
+            0x1165, 0x1175, 0x1166, // ㅓ + ㅣ = ㅔ
             0x1169, 0x1161, 0x116A, // ㅗ + ㅏ = ㅘ
             0x1169, 0x1162, 0x116B, // ㅗ + ㅐ = ㅙ
             0x1169, 0x1175, 0x116C, // ㅗ + ㅣ = ㅚ
@@ -64,9 +66,7 @@ public final class HangulCombiner {
 
     /** 순아래 전용 확장 조합표. 표준 조회 실패 후에만 사용. */
     private static final Map<Long, Integer> COMBINATION_TABLE_DUBEOLSIK_NOSHIFT = combinationMap(
-            0x1161, 0x1175, 0x1162, // ㅏ + ㅣ = ㅐ (wide 레이아웃에서 ㅐ 키 제거)
             0x1163, 0x1175, 0x1164, // ㅑ + ㅣ = ㅒ
-            0x1165, 0x1175, 0x1166, // ㅓ + ㅣ = ㅔ (wide 레이아웃에서 ㅔ 키 제거)
             0x1167, 0x1175, 0x1168, // ㅕ + ㅣ = ㅖ
             0x116A, 0x1175, 0x116B, // ㅘ + ㅣ = ㅙ
             0x116F, 0x1175, 0x1170, // ㅝ + ㅣ = ㅞ
