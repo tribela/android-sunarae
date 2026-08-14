@@ -27,44 +27,92 @@
 <merge
     xmlns:latin="http://schemas.android.com/apk/res-auto"
 >
-    <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
-    <Key
-        latin:keySpec="&#x3141;"
-        latin:keyHintLabel="\@"
-        latin:moreKeys="\@" />
-    <!-- U+3134: "ㄴ" -> hint "#", popup "#" -->
-    <Key
-        latin:keySpec="&#x3134;"
-        latin:keyHintLabel="\#"
-        latin:moreKeys="\#" />
-    <!-- U+3147: "ㅇ" -> hint "$", popup "$" -->
-    <Key
-        latin:keySpec="&#x3147;"
-        latin:keyHintLabel="\$"
-        latin:moreKeys="\$" />
-    <!-- U+3139: "ㄹ" -> hint "%" (direct), popup "%" (\\% escaped: bare % is the additionalMoreKeys marker) -->
-    <Key
-        latin:keySpec="&#x3139;"
-        latin:keyHintLabel="%"
-        latin:moreKeys="\\%" />
-    <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
-    <Key
-        latin:keySpec="&#x314E;"
-        latin:keyHintLabel="^"
-        latin:moreKeys="^" />
-    <!-- U+3157: "ㅗ" -> hint "_", popup "_" (&#x5F; = underscore) -->
-    <Key
-        latin:keySpec="&#x3157;"
-        latin:keyHintLabel="&#x5F;"
-        latin:moreKeys="&#x5F;" />
-    <!-- U+3153: "ㅓ" -> hint "-", popup "-" -->
-    <Key
-        latin:keySpec="&#x3153;"
-        latin:keyHintLabel="-"
-        latin:moreKeys="-" />
-    <!-- U+314F: "ㅏ" -> hint "+", popup "+" -->
-    <Key
-        latin:keySpec="&#x314F;"
-        latin:keyHintLabel="+"
-        latin:moreKeys="+" />
+    <switch>
+        <case
+            latin:showNumberRow="true">
+            <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
+            <Key
+                latin:keySpec="&#x3141;"
+                latin:keyHintLabel="\@"
+                latin:moreKeys="\@" />
+            <!-- U+3134: "ㄴ" -> hint "#", popup "#" -->
+            <Key
+                latin:keySpec="&#x3134;"
+                latin:keyHintLabel="\#"
+                latin:moreKeys="\#" />
+            <!-- U+3147: "ㅇ" -> hint "$", popup "$" -->
+            <Key
+                latin:keySpec="&#x3147;"
+                latin:keyHintLabel="\$"
+                latin:moreKeys="\$" />
+            <!-- U+3139: "ㄹ" -> hint "%" (direct), popup "%" (\\% escaped: bare % is the additionalMoreKeys marker) -->
+            <Key
+                latin:keySpec="&#x3139;"
+                latin:keyHintLabel="%"
+                latin:moreKeys="\\%" />
+            <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
+            <Key
+                latin:keySpec="&#x314E;"
+                latin:keyHintLabel="^"
+                latin:moreKeys="^" />
+            <!-- U+3157: "ㅗ" -> hint "_", popup "_" (&#x5F; = underscore) -->
+            <Key
+                latin:keySpec="&#x3157;"
+                latin:keyHintLabel="&#x5F;"
+                latin:moreKeys="&#x5F;" />
+            <!-- U+3153: "ㅓ" -> hint "-", popup "-" -->
+            <Key
+                latin:keySpec="&#x3153;"
+                latin:keyHintLabel="-"
+                latin:moreKeys="-" />
+            <!-- U+314F: "ㅏ" -> hint "+", popup "+" -->
+            <Key
+                latin:keySpec="&#x314F;"
+                latin:keyHintLabel="+"
+                latin:moreKeys="+" />
+        </case>
+        <default>
+            <!-- Number row hidden: ㅓ popup gains 9, ㅏ popup gains 0. -->
+            <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
+            <Key
+                latin:keySpec="&#x3141;"
+                latin:keyHintLabel="\@"
+                latin:moreKeys="\@" />
+            <!-- U+3134: "ㄴ" -> hint "#", popup "#" -->
+            <Key
+                latin:keySpec="&#x3134;"
+                latin:keyHintLabel="\#"
+                latin:moreKeys="\#" />
+            <!-- U+3147: "ㅇ" -> hint "$", popup "$" -->
+            <Key
+                latin:keySpec="&#x3147;"
+                latin:keyHintLabel="\$"
+                latin:moreKeys="\$" />
+            <!-- U+3139: "ㄹ" -> hint "%" (direct), popup "%" (\\% escaped) -->
+            <Key
+                latin:keySpec="&#x3139;"
+                latin:keyHintLabel="%"
+                latin:moreKeys="\\%" />
+            <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
+            <Key
+                latin:keySpec="&#x314E;"
+                latin:keyHintLabel="^"
+                latin:moreKeys="^" />
+            <!-- U+3157: "ㅗ" -> hint "_", popup "_" -->
+            <Key
+                latin:keySpec="&#x3157;"
+                latin:keyHintLabel="&#x5F;"
+                latin:moreKeys="&#x5F;" />
+            <!-- U+3153: "ㅓ" -> hint "9", popup "9", "-" -->
+            <Key
+                latin:keySpec="&#x3153;"
+                latin:keyHintLabel="9"
+                latin:moreKeys="9,-" />
+            <!-- U+314F: "ㅏ" -> hint "0", popup "0", "+" -->
+            <Key
+                latin:keySpec="&#x314F;"
+                latin:keyHintLabel="0"
+                latin:moreKeys="0,+" />
+        </default>
+    </switch>
 </merge>
