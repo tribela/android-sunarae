@@ -697,6 +697,12 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         // Commit any in-progress Hangul composition first, so the swipe selects a block
         // of committed text instead of undoing jamo by jamo.
         mInputLogic.commitComposingTextIfAny();
+        // The delete key on the left edge cannot swipe left (off-screen), so flip the
+        // direction: swipe right to delete. When the backspace is on the right (option
+        // enabled) the swipe stays leftward as usual.
+        if (!mSettings.getCurrent().mShowBackspaceOnRight) {
+            steps = -steps;
+        }
         if (mInputLogic.mConnection.hasCursorPosition()) {
             final int end = mInputLogic.mConnection.getExpectedSelectionEnd();
             final int start = mInputLogic.mConnection.getExpectedSelectionStart() + steps;
