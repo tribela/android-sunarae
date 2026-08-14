@@ -670,6 +670,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onMoveCursorPointer(int steps) {
+        mInputLogic.commitComposingTextIfAny();
         if (mInputLogic.mConnection.hasCursorPosition()) {
             if (TextUtils.getLayoutDirectionFromLocale(getCurrentLayoutLocale()) == View.LAYOUT_DIRECTION_RTL)
                 steps = -steps;
@@ -693,18 +694,17 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
 
     @Override
     public void onMoveDeletePointer(int steps) {
+        // Commit any in-progress Hangul composition first, so the swipe selects a block
+        // of committed text instead of undoing jamo by jamo.
+        mInputLogic.commitComposingTextIfAny();
         if (mInputLogic.mConnection.hasCursorPosition()) {
-            steps = mInputLogic.mConnection.getUnicodeSteps(steps, false);
-            if (steps == 0) {
-                return;
-            }
             final int end = mInputLogic.mConnection.getExpectedSelectionEnd();
             final int start = mInputLogic.mConnection.getExpectedSelectionStart() + steps;
             mInputLogic.mConnection.setSelection(start, end);
             hapticTickFeedback();
         } else {
             for (; steps < 0; steps++)
-                mInputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
+                mInputLogic.handleDeleteSwipe();
             hapticTickFeedback();
         }
     }

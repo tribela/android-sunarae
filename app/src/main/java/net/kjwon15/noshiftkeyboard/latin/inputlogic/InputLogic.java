@@ -115,6 +115,44 @@ public final class InputLogic {
     }
 
     /**
+     * Finalize the current Hangul composition if one is in progress.
+     * Used before cursor moves (space swipe) so the composing region is committed first.
+     */
+    public void commitComposingTextIfAny() {
+        if (isComposing()) {
+            commitComposingText();
+        }
+    }
+
+    /**
+     * Delete one unit as the delete swipe moves. While a Hangul composition is in
+     * progress this undoes one jamo (same as backspace); otherwise it deletes the
+     * selected text or the character before the cursor.
+     */
+    public void handleDeleteSwipe() {
+        if (isComposing()) {
+            final String after = mHangulCombiner.processDelete();
+            if (after.length() == 0) {
+                mConnection.setComposingText("", 1);
+            } else {
+                mConnection.setComposingText(after, 1);
+            }
+            return;
+        }
+        if (mConnection.hasSelection()) {
+            mConnection.deleteSelectedText();
+        } else {
+            final int codePointBeforeCursor = mConnection.getCodePointBeforeCursor();
+            if (codePointBeforeCursor == Constants.NOT_A_CODE) {
+                sendDownUpKeyEvent(KeyEvent.KEYCODE_DEL);
+            } else {
+                final int numChars = Character.isSupplementaryCodePoint(codePointBeforeCursor) ? 2 : 1;
+                mConnection.deleteTextBeforeCursor(numChars);
+            }
+        }
+    }
+
+    /**
      * React to a string input.
      *
      * This is triggered by keys that input many characters at once, like the ".com" key or

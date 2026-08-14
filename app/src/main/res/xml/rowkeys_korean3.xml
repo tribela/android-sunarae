@@ -36,16 +36,16 @@
         latin:keySpec="&#x314C;"
         latin:keyHintLabel="'"
         latin:moreKeys="'" />
-    <!-- U+314A: "ㅊ" -> hint ":", popup ":" -->
+    <!-- U+314A: "ㅊ" -> hint ":", popup ":", ";" (two candidates) -->
     <Key
         latin:keySpec="&#x314A;"
         latin:keyHintLabel=":"
-        latin:moreKeys=":" />
-    <!-- U+314D: "ㅍ" -> hint "/", popup "/" -->
+        latin:moreKeys=":,;" />
+    <!-- U+314D: "ㅍ" -> hint "/", popup "/", "|", "\" (\\ escaped backslash) -->
     <Key
         latin:keySpec="&#x314D;"
         latin:keyHintLabel="/"
-        latin:moreKeys="/" />
+        latin:moreKeys="/,|,\\" />
     <!-- U+3160: "ㅠ" -> hint "|", popup "|" -->
     <Key
         latin:keySpec="&#x3160;"
