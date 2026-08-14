@@ -54,7 +54,7 @@
     <string name="settings_screen_key_press">키 입력</string>
     <string name="user_languages">활성화된 키보드 언어</string>
     <string name="add_language">언어 추가</string>
-    <string name="remove_language">언어를 제거하세요</string>
+    <string name="remove_language">언어 제거</string>
     <string name="generic_language_layouts"><xliff:g id="LANGUAGE_NAME" example="English (US)">%s</xliff:g> 키보드 레이아웃</string>
     <string name="change_keyboard">키보드 변경</string>
     <string name="privacy_policy">개인정보 보호정책</string>
