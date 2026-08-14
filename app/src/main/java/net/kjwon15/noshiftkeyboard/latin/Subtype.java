@@ -116,6 +116,16 @@ public final class Subtype {
                         mLayoutNameStr);
             }
         }
+        // The Korean noshift layouts are labelled by layout name only
+        // ("두벌식(순아래)", "순아래(넓음)") rather than "한국어 (...)".
+        if (mLayoutSet.startsWith("noshift")) {
+            if (mLayoutNameRes != NO_RESOURCE) {
+                return mResources.getString(mLayoutNameRes);
+            }
+            if (mLayoutNameStr != null) {
+                return mLayoutNameStr;
+            }
+        }
         return localeDisplayName;
     }
 

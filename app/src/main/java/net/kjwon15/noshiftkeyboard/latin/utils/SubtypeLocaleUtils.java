@@ -535,10 +535,10 @@ public final class SubtypeLocaleUtils {
                     break;
                 case LOCALE_KOREAN:
                     // "noshift" layoutSet -> keyboard_layout_set_noshift.xml (Dubeolsik noshift).
-                    addLayout(LAYOUT_NOSHIFT);
+                    addLayout(LAYOUT_NOSHIFT, R.string.subtype_noshift);
                     // "noshift_wide" layoutSet -> keyboard_layout_set_noshift_wide.xml (wide
-                    // variant, shown in the language selection UI as a separate "한국어 (넓은)").
-                    addLayout(LAYOUT_NOSHIFT_WIDE, R.string.subtype_korean_wide);
+                    // variant, shown in the language selection UI as a separate "순아래(넓음)").
+                    addLayout(LAYOUT_NOSHIFT_WIDE, R.string.subtype_noshift_wide);
                     break;
                 case LOCALE_KANNADA_INDIA:
                     addLayout(LAYOUT_KANNADA);
