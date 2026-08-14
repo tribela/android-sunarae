@@ -27,6 +27,10 @@
         android:title="@string/show_number_row"
         android:defaultValue="false" />
     <SwitchPreference
+        android:key="pref_show_backspace_on_right"
+        android:title="@string/show_backspace_on_right"
+        android:defaultValue="false" />
+    <SwitchPreference
         android:key="pref_show_special_chars"
         android:title="@string/show_special_chars"
         android:defaultValue="true" />

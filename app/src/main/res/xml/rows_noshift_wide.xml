@@ -46,10 +46,21 @@
         <include
             latin:keyXPos="11.1%p"
             latin:keyboardLayout="@xml/rowkeys_noshift_wide3" />
-        <Key
-            latin:keyStyle="shiftKeyStyle"
-            latin:keyXPos="88.8%p"
-            latin:keyWidth="11.2%p" />
+        <switch>
+            <case
+                latin:showBackspaceOnRight="true">
+                <Key
+                    latin:keyStyle="deleteKeyStyle"
+                    latin:keyXPos="88.8%p"
+                    latin:keyWidth="11.2%p" />
+            </case>
+            <default>
+                <Key
+                    latin:keyStyle="shiftKeyStyle"
+                    latin:keyXPos="88.8%p"
+                    latin:keyWidth="11.2%p" />
+            </default>
+        </switch>
     </Row>
     <include
         latin:keyboardLayout="@xml/row_noshift_bottom" />

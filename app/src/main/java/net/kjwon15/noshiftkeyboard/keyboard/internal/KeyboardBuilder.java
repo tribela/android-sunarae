@@ -611,13 +611,15 @@ public class KeyboardBuilder<KP extends KeyboardParams> {
                     R.styleable.Keyboard_Case_showExtraChars, id.mShowMoreKeys);
             final boolean showNumberRowMatched = matchBoolean(caseAttr,
                     R.styleable.Keyboard_Case_showNumberRow, id.mShowNumberRow);
+            final boolean showBackspaceOnRightMatched = matchBoolean(caseAttr,
+                    R.styleable.Keyboard_Case_showBackspaceOnRight, id.mShowBackspaceOnRight);
             final boolean selected = keyboardLayoutSetMatched && keyboardLayoutSetElementMatched
                     && keyboardThemeMatched && modeMatched && navigateNextMatched
                     && navigatePreviousMatched && passwordInputMatched
                     && languageSwitchKeyEnabledMatched && clobberSettingsKeyMatched
                     && isMultiLineMatched && imeActionMatched && isIconDefinedMatched
                     && localeCodeMatched && languageCodeMatched && countryCodeMatched
-                    && showMoreKeysMatched && showNumberRowMatched;
+                    && showMoreKeysMatched && showNumberRowMatched && showBackspaceOnRightMatched;
 
             return selected;
         } finally {

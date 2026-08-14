@@ -62,6 +62,7 @@ public final class Settings extends BroadcastReceiver implements SharedPreferenc
     public static final String PREF_KEYBOARD_COLOR = "pref_keyboard_color";
     public static final String PREF_SHOW_SPECIAL_CHARS = "pref_show_special_chars";
     public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
+    public static final String PREF_SHOW_BACKSPACE_ON_RIGHT = "pref_show_backspace_on_right";
     public static final String PREF_SPACE_SWIPE = "pref_space_swipe";
     public static final String PREF_DELETE_SWIPE = "pref_delete_swipe";
 
@@ -241,6 +242,10 @@ public final class Settings extends BroadcastReceiver implements SharedPreferenc
 
     public static boolean readShowNumberRow(final SharedPreferences prefs) {
         return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, true);
+    }
+
+    public static boolean readShowBackspaceOnRight(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_SHOW_BACKSPACE_ON_RIGHT, false);
     }
 
     public static boolean readSpaceSwipeEnabled(final SharedPreferences prefs) {

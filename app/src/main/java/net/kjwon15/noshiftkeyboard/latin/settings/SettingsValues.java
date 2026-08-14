@@ -47,6 +47,7 @@ public class SettingsValues {
     public final int mKeyLongpressTimeout;
     public final boolean mShowSpecialChars;
     public final boolean mShowNumberRow;
+    public final boolean mShowBackspaceOnRight;
     public final boolean mSpaceSwipeEnabled;
     public final boolean mDeleteSwipeEnabled;
 
@@ -89,6 +90,7 @@ public class SettingsValues {
         mDisplayOrientation = res.getConfiguration().orientation;
         mShowSpecialChars = Settings.readShowSpecialChars(prefs);
         mShowNumberRow = Settings.readShowNumberRow(prefs);
+        mShowBackspaceOnRight = Settings.readShowBackspaceOnRight(prefs);
         mSpaceSwipeEnabled = Settings.readSpaceSwipeEnabled(prefs);
         mDeleteSwipeEnabled = Settings.readDeleteSwipeEnabled(prefs);
     }
