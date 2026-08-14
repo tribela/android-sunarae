@@ -18,31 +18,34 @@
 */
 -->
 
-<!-- Standard Dubeolsik 10-9-7 arrangement with physical-keyboard stagger:
-     2nd row shifted right by 5%, 3rd row by 10%, so the vowel keys (ㅛㅕㅑㅐㅔ,
-     ㅗㅓㅏㅣ, ㅠㅜㅡ) sit under the right hand. No shift key (noshift rules),
-     but a delete key flanks the 3rd row on the right. -->
+<!-- Wide Dubeolsik arrangement (ortholinear, no stagger):
+     1st row ㅂㅈㄷㄱㅅㅛㅕㅑ (8 keys, ㅐㅔ removed)
+     2nd row ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys)
+     3rd row ㅋㅌㅊㅍㅠㅜㅡ (7 keys, ㅍㅠ kept adjacent)
+     Rows 1-2 are left-aligned so the keys are wider than the staggered
+     standard layout; row 3 starts at 5% so there is empty space to the left
+     of ㅋ, and the delete key on the right is kept narrow (15%p) to avoid
+     accidental backspace while typing ㅡ. No shift key (noshift rules). -->
 
 <merge xmlns:latin="http://schemas.android.com/apk/res-auto">
     <Row
-        latin:keyWidth="10%p"
+        latin:keyWidth="12.5%p"
     >
         <include
-            latin:keyboardLayout="@xml/rowkeys_korean1" />
+            latin:keyboardLayout="@xml/rowkeys_korean_wide1" />
+    </Row>
+    <Row
+        latin:keyWidth="11.1%p"
+    >
+        <include
+            latin:keyboardLayout="@xml/rowkeys_korean_wide2" />
     </Row>
     <Row
         latin:keyWidth="10%p"
     >
         <include
             latin:keyXPos="5%p"
-            latin:keyboardLayout="@xml/rowkeys_korean2" />
-    </Row>
-    <Row
-        latin:keyWidth="10%p"
-    >
-        <include
-            latin:keyXPos="15%p"
-            latin:keyboardLayout="@xml/rowkeys_korean3" />
+            latin:keyboardLayout="@xml/rowkeys_korean_wide3" />
         <Key
             latin:keyStyle="deleteKeyStyle"
             latin:keyXPos="85%p"

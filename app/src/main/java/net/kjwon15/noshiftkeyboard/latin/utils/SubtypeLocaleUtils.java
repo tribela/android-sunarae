@@ -239,6 +239,7 @@ public final class SubtypeLocaleUtils {
     public static final String LAYOUT_KANNADA = "kannada";
     public static final String LAYOUT_KHMER = "khmer";
     public static final String LAYOUT_KOREAN = "korean";
+    public static final String LAYOUT_KOREAN_WIDE = "korean_wide";
     public static final String LAYOUT_LAO = "lao";
     public static final String LAYOUT_MACEDONIAN = "macedonian";
     public static final String LAYOUT_MALAYALAM = "malayalam";
@@ -535,6 +536,9 @@ public final class SubtypeLocaleUtils {
                 case LOCALE_KOREAN:
                     // "korean" layoutSet -> keyboard_layout_set_korean.xml (Dubeolsik noshift).
                     addLayout(LAYOUT_KOREAN);
+                    // "korean_wide" layoutSet -> keyboard_layout_set_korean_wide.xml (wide variant,
+                    // shown in the language selection UI as a separate "한국어 (넓은)" subtype).
+                    addLayout(LAYOUT_KOREAN_WIDE, R.string.subtype_korean_wide);
                     break;
                 case LOCALE_KANNADA_INDIA:
                     addLayout(LAYOUT_KANNADA);

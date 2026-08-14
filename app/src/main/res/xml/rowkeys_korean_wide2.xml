@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+**
+** Copyright 2012, The Android Open Source Project
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<!-- Wide layout row 2: ㅁㄴㅇㄹㅎㅗㅓㅏㅣ (9 keys, same popups as rowkeys_korean2).
+     Long-press popups mirror the AOSP/Gboard English keyboard special
+     characters on the physical QWERTY positions (A->@, S->#, D->$, F->%,
+     G->&, H->-, J->+, K->(, L->)). Compound vowels are produced by the
+     noshift combiner from vowel sequences, so no vowel popups are needed. -->
+
+<merge
+    xmlns:latin="http://schemas.android.com/apk/res-auto"
+>
+    <!-- U+3141: "ㅁ" -> hint "@", popup "@" -->
+    <Key
+        latin:keySpec="&#x3141;"
+        latin:keyHintLabel="\@"
+        latin:moreKeys="\@" />
+    <!-- U+3134: "ㄴ" -> hint "#", popup "#" -->
+    <Key
+        latin:keySpec="&#x3134;"
+        latin:keyHintLabel="\#"
+        latin:moreKeys="\#" />
+    <!-- U+3147: "ㅇ" -> hint "$", popup "$" -->
+    <Key
+        latin:keySpec="&#x3147;"
+        latin:keyHintLabel="\$"
+        latin:moreKeys="\$" />
+    <!-- U+3139: "ㄹ" -> hint "%" (direct), popup "%" (\\% escaped: bare % is the additionalMoreKeys marker) -->
+    <Key
+        latin:keySpec="&#x3139;"
+        latin:keyHintLabel="%"
+        latin:moreKeys="\\%" />
+    <!-- U+314E: "ㅎ" -> hint "^", popup "^" -->
+    <Key
+        latin:keySpec="&#x314E;"
+        latin:keyHintLabel="^"
+        latin:moreKeys="^" />
+    <!-- U+3157: "ㅗ" -> hint "_", popup "_" (&#x5F; = underscore) -->
+    <Key
+        latin:keySpec="&#x3157;"
+        latin:keyHintLabel="&#x5F;"
+        latin:moreKeys="&#x5F;" />
+    <!-- U+3153: "ㅓ" -> hint "-", popup "-" -->
+    <Key
+        latin:keySpec="&#x3153;"
+        latin:keyHintLabel="-"
+        latin:moreKeys="-" />
+    <!-- U+314F: "ㅏ" -> hint "+", popup "+" -->
+    <Key
+        latin:keySpec="&#x314F;"
+        latin:keyHintLabel="+"
+        latin:moreKeys="+" />
+    <!-- U+3163: "ㅣ" -> hint "=", popup "=" -->
+    <Key
+        latin:keySpec="&#x3163;"
+        latin:keyHintLabel="="
+        latin:moreKeys="=" />
+</merge>

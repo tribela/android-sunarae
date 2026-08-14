@@ -81,6 +81,8 @@
     <string name="subtype_akkhor">Akkhor</string>
     <!-- Description for Ergo-L keyboard layout. -->
     <string name="subtype_ergol">Ergo-L</string>
+    <!-- Description for the Korean wide keyboard layout ("한국어 (넓은)"). -->
+    <string name="subtype_korean_wide">넓은</string>
     <!-- Description for Hcesar keyboard layout. -->
     <string name="subtype_hcesar">HCESAR</string>
 
