@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2025 Raimondas Rimkus
+<!-- Copyright (C) 2026 Jeong Arm
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,35 +13,23 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="28dp"
     android:height="28dp"
     android:viewportWidth="28"
     android:viewportHeight="28">
     <path
-        android:fillColor="#EAEDEF"
-        android:strokeColor="#EAEDEF"
-        android:strokeWidth="3"
-        android:strokeLineJoin="round"
-        android:pathData="M2,2 26,2 26,26 2,26 z"/>
+        android:fillColor="#ECEFF1"
+        android:pathData="M6,2 H22 A4,4 0 0 1 26,6 V22 A4,4 0 0 1 22,26 H6 A4,4 0 0 1 2,22 V6 A4,4 0 0 1 6,2 Z"/>
     <group
-        android:translateX="5"
-        android:translateY="5">
-        <path
-            android:fillColor="#5695FD"
-            android:strokeColor="#5695FD"
-            android:strokeWidth="3"
-            android:strokeLineJoin="round"
-            android:pathData="M1,1 17,1 17,5 1,5 z"/>
-        <path
-            android:fillColor="#C8CBCD"
-            android:strokeColor="#C8CBCD"
-            android:strokeWidth="1"
-            android:strokeLineJoin="round"
-            android:pathData="@string/icon_launcher_keys"/>
-        <path
-            android:fillColor="@android:color/white"
-            android:pathData="@string/icon_launcher_text"/>
+        android:scaleX="0.14398"
+        android:scaleY="0.14398"
+        android:translateX="-3.1429"
+        android:translateY="-3.1429">
+        <path android:fillColor="#68A9FF" android:pathData="M47.58,79.38 H190.54 A11.86,11.86 0 0 1 202.41,91.24 V146.89 A11.86,11.86 0 0 1 190.54,158.75 H47.58 A11.86,11.86 0 0 1 35.72,146.89 V91.24 A11.86,11.86 0 0 1 47.58,79.38 Z"/>
+        <path android:fillColor="#FFFFFF" android:pathData="M113.22,136.06 H124.90 V116.59 H131.06 V116.55 L119.06,102.06 L107.06,116.55 V116.59 H113.22 Z"/>
+        <path android:fillColor="#68A9FF" android:pathData="M123.35,114.95 V134.43 H114.77 V114.95 H110.47 V114.88 L119.06,104.55 L127.65,114.88 V114.95 Z"/>
+        <path android:fillColor="#E71414" android:pathData="M49.83,108.01 H192.45 A1.88,1.88 0 0 1 194.33,109.88 V109.88 A1.88,1.88 0 0 1 192.45,111.76 H49.83 A1.88,1.88 0 0 1 47.96,109.88 V109.88 A1.88,1.88 0 0 1 49.83,108.01 Z"/>
+        <path android:fillColor="#E71414" android:pathData="M49.75,126.50 H192.37 A1.88,1.88 0 0 1 194.25,128.38 V128.38 A1.88,1.88 0 0 1 192.37,130.25 H49.75 A1.88,1.88 0 0 1 47.87,128.38 V128.38 A1.88,1.88 0 0 1 49.75,126.50 Z"/>
     </group>
 </vector>

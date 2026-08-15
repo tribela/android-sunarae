@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2025 Raimondas Rimkus
+<!-- Copyright (C) 2026 Jeong Arm
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,23 +13,19 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="42dp"
     android:height="42dp"
     android:viewportWidth="42"
     android:viewportHeight="42">
     <group
-        android:translateX="12"
-        android:translateY="12">
-        <path
-            android:fillColor="#C8CBCD"
-            android:strokeColor="#C8CBCD"
-            android:strokeWidth="1"
-            android:strokeLineJoin="round"
-            android:pathData="@string/icon_launcher_keys"/>
-        <path
-            android:fillColor="#C8CBCD"
-            android:pathData="@string/icon_launcher_text"/>
+        android:scaleX="0.14998"
+        android:scaleY="0.14998"
+        android:translateX="3.1429"
+        android:translateY="3.1429">
+        <path android:fillColor="#C8CBCD" android:pathData="M113.22,136.06 H124.90 V116.59 H131.06 V116.55 L119.06,102.06 L107.06,116.55 V116.59 H113.22 Z"/>
+        <path android:fillColor="#C8CBCD" android:pathData="M123.35,114.95 V134.43 H114.77 V114.95 H110.47 V114.88 L119.06,104.55 L127.65,114.88 V114.95 Z"/>
+        <path android:fillColor="#C8CBCD" android:pathData="M49.83,108.01 H192.45 A1.88,1.88 0 0 1 194.33,109.88 V109.88 A1.88,1.88 0 0 1 192.45,111.76 H49.83 A1.88,1.88 0 0 1 47.96,109.88 V109.88 A1.88,1.88 0 0 1 49.83,108.01 Z"/>
+        <path android:fillColor="#C8CBCD" android:pathData="M49.75,126.50 H192.37 A1.88,1.88 0 0 1 194.25,128.38 V128.38 A1.88,1.88 0 0 1 192.37,130.25 H49.75 A1.88,1.88 0 0 1 47.87,128.38 V128.38 A1.88,1.88 0 0 1 49.75,126.50 Z"/>
     </group>
 </vector>
