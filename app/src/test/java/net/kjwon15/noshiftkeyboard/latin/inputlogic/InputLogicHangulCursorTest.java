@@ -1,0 +1,91 @@
+// SPDX-License-Identifier: Apache-2.0
+// 순아래 키보드 — 한글 조합 중 커서 이동(손가락 탭) 후 입력 회귀 테스트
+
+package net.kjwon15.noshiftkeyboard.latin.inputlogic;
+
+import net.kjwon15.noshiftkeyboard.latin.LatinIME;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+/**
+ * 수동 커서 이동 시 한글 조합 상태 동기화 검증.
+ *
+ * <p>스페이스바 스와이프 이동은 {@code onMoveCursorPointer}에서 조합을 먼저 커밋하지만,
+ * 손가락으로 텍스트 필드를 직접 탭하면 {@link InputLogic#onUpdateSelection}만 호출된다.
+ * 조합 상태를 커밋/리셋하지 않으면 이후 jamo 입력이 옛 조합에 덧붙여져서 커서 위치가 아닌
+ * 문장 끝에 붙는 버그가 생긴다 (가나다라 + 중간 커서 + 하 → "가나하다라"가 아니라
+ * "가나다라하").</p>
+ */
+public class InputLogicHangulCursorTest {
+
+    /** {@code isKoreanLayout()}이 항상 true인 테스트 전용 LatinIME. */
+    private static final class FakeKoreanLatinIME extends LatinIME {
+        @Override
+        public boolean isKoreanLayout() {
+            return true;
+        }
+    }
+
+    private InputLogic logic;
+
+    @Before
+    public void setUp() {
+        logic = new InputLogic(new FakeKoreanLatinIME());
+        logic.startInput();
+        // 입력 시작 시 프레임워크가 보고하는 초기 커서 위치를 흉내 낸다. 이 호출이 있어야
+        // RichInputConnection이 예상 커서 위치를 갖게 되고 이후 수동 이동을 감지할 수 있다.
+        logic.onUpdateSelection(0, 0);
+    }
+
+    /** compat jamo 코드포인트를 InputLogic을 통해 조합기에 전달한다. */
+    private void send(int codePoint) {
+        logic.sendKeyCodePoint(codePoint);
+    }
+
+    /** "가나다라"를 타이핑한 것과 동일한 조합 상태를 만든다. */
+    private void typeGaNaDaRa() {
+        send(0x3131); // ㄱ
+        send(0x314F); // ㅏ
+        send(0x3134); // ㄴ
+        send(0x314F); // ㅏ
+        send(0x3137); // ㄷ
+        send(0x314F); // ㅏ
+        send(0x3139); // ㄹ
+        send(0x314F); // ㅏ
+        assertEquals("가나다라", logic.hangulCombiningFeedback());
+    }
+
+    @Test
+    public void manualCursorMoveCommitsCompositionAndResetsCombiner() {
+        typeGaNaDaRa();
+
+        // 사용자가 손으로 커서를 "가나" 뒤(위치 2)로 옮김: IME가 예상한 위치(4)와 다르다.
+        logic.onUpdateSelection(2, 2);
+
+        // 조합이 확정되고 조합기가 리셋되어야 한다.
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        // 이제 "하"를 치면 새 조합이 커서 위치에서 시작한다 → 편집기에 "가나하다라".
+        send(0x314E); // ㅎ
+        send(0x314F); // ㅏ
+        assertEquals("하", logic.hangulCombiningFeedback());
+    }
+
+    @Test
+    public void imeDrivenSelectionUpdateKeepsComposition() {
+        typeGaNaDaRa();
+
+        // IME 자신이 setComposingText로 만든 선택 위치(4)가 프레임워크에서 그대로 돌아온 경우:
+        // 수동 이동이 아니므로 조합을 유지해야 한다.
+        logic.onUpdateSelection(4, 4);
+
+        assertEquals("가나다라", logic.hangulCombiningFeedback());
+
+        // 조합이 계속 이어져야 한다 (가나다라 + ㄱ → 가나다락, ㄱ은 라의 받침).
+        send(0x3131); // ㄱ
+        assertEquals("가나다락", logic.hangulCombiningFeedback());
+    }
+}

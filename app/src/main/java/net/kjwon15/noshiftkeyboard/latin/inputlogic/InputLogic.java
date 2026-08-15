@@ -176,10 +176,26 @@ public final class InputLogic {
      * Consider an update to the cursor position. Evaluate whether this update has happened as
      * part of normal typing or whether it was an explicit cursor move by the user. In any case,
      * do the necessary adjustments.
+     *
+     * <p>When the user moves the cursor by hand (tapping the text field, hardware arrow keys,
+     * selection handles) the reported selection differs from the one the IME set itself, which
+     * is exactly what {@link RichInputConnection} tracks the expected selection for. Any Hangul
+     * composition in progress then refers to a stale position: typing a jamo afterwards would
+     * append it to the old composition and {@code setComposingText} would replace the whole
+     * composing region instead of inserting at the cursor (e.g. "가나다라" + cursor moved to the
+     * middle + "하" would yield "가나다라하" instead of "가나하다라"). Finalize the composition
+     * and reset the combiner so the next key starts a fresh composition at the new cursor.
+     *
      * @param newSelStart new selection start
      * @param newSelEnd new selection end
      */
     public void onUpdateSelection(final int newSelStart, final int newSelEnd) {
+        if (mConnection.hasCursorPosition()
+                && (newSelStart != mConnection.getExpectedSelectionStart()
+                || newSelEnd != mConnection.getExpectedSelectionEnd())
+                && isComposing()) {
+            commitComposingText();
+        }
         mConnection.updateSelection(newSelStart, newSelEnd);
     }
 
@@ -634,7 +650,7 @@ public final class InputLogic {
      * @param codePoint the code point to send.
      */
     // TODO: replace these two parameters with an InputTransaction
-    private void sendKeyCodePoint(final int codePoint) {
+    void sendKeyCodePoint(final int codePoint) {
         // In a Korean layout, jamo code points are fed to the Hangul combiner and displayed as
         // composing text instead of being committed directly.
         if (mIsKoreanLayout && HangulCombiner.isHangul(codePoint)) {
@@ -655,5 +671,13 @@ public final class InputLogic {
         }
 
         mConnection.commitText(StringUtils.newSingleCodePointString(codePoint), 1);
+    }
+
+    /**
+     * Test observation seam (JVM unit tests only): the current Hangul combiner state
+     * (committed composing word + syllable being combined), without touching the editor.
+     */
+    String hangulCombiningFeedback() {
+        return mHangulCombiner.combiningStateFeedback();
     }
 }
