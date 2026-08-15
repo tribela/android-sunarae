@@ -32,9 +32,6 @@ import net.kjwon15.noshiftkeyboard.latin.common.StringUtils;
  * A helper class to deal with displaying locales.
   */
 public final class LocaleResourceUtils {
-    // This reference class {@link R} must be located in the same package as LatinIME.java.
-    private static final String RESOURCE_PACKAGE_NAME = R.class.getPackage().getName();
-
     private static volatile boolean sInitialized = false;
     private static final Object sInitializeLock = new Object();
     private static Resources sResources;
@@ -69,12 +66,18 @@ public final class LocaleResourceUtils {
         final Resources res = context.getResources();
         sResources = res;
 
+        // Resolve the resource package from a real resource instead of the R class package:
+        // with applicationIdSuffix (debug builds) the APK's resource table lives under the
+        // suffixed applicationId, so a hardcoded namespace would make getIdentifier return 0.
+        final String resourcePackageName =
+                res.getResourcePackageName(R.array.locale_exception_keys);
+
         final String[] exceptionalLocaleInRootLocale = res.getStringArray(
                 R.array.locale_displayed_in_root_locale);
         for (int i = 0; i < exceptionalLocaleInRootLocale.length; i++) {
             final String localeString = exceptionalLocaleInRootLocale[i];
             final String resourceName = LOCALE_NAME_RESOURCE_IN_ROOT_LOCALE_PREFIX + localeString;
-            final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
+            final int resId = res.getIdentifier(resourceName, null, resourcePackageName);
             sExceptionalLocaleDisplayedInRootLocale.put(localeString, resId);
         }
 
@@ -82,7 +85,7 @@ public final class LocaleResourceUtils {
         for (int i = 0; i < exceptionalLocales.length; i++) {
             final String localeString = exceptionalLocales[i];
             final String resourceName = LOCALE_NAME_RESOURCE_PREFIX + localeString;
-            final int resId = res.getIdentifier(resourceName, null, RESOURCE_PACKAGE_NAME);
+            final int resId = res.getIdentifier(resourceName, null, resourcePackageName);
             sExceptionalLocaleToNameIdsMap.put(localeString, resId);
         }
     }
@@ -164,7 +167,9 @@ public final class LocaleResourceUtils {
             exceptionalNameResId = null;
         }
 
-        if (exceptionalNameResId != null) {
+        // resId may be 0 when the locale name resource is absent in the current config;
+        // fall back to the platform's display name instead of crashing on getString(0).
+        if (exceptionalNameResId != null && exceptionalNameResId != 0) {
             return sResources.getString(exceptionalNameResId);
         } else {
             return LocaleUtils.constructLocaleFromString(localeString)

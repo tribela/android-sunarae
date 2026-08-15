@@ -28,6 +28,11 @@ android {
         }
     }
     buildTypes {
+        // Debug builds get their own applicationId so they can coexist with the release
+        // build (and any Play install) on the same device without uninstalling either.
+        debug {
+            applicationIdSuffix ".debug"
+        }
         release {
             minifyEnabled true
             shrinkResources true

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug 빌드 전용 리소스: 릴리즈와 같은 이름이면 시스템 키보드 목록에서
+     구분이 안 되므로 debug 표기를 붙인다. (applicationIdSuffix .debug와 짝) -->
+<resources>
+    <string name="english_ime_name" translatable="false">순아래 키보드 (debug)</string>
+</resources>
