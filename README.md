@@ -2,6 +2,13 @@
 
 두벌식 순아래 한글 입력을 지원하는 키보드. [Simple Keyboard](https://github.com/rkkr/simple-keyboard)의 포크입니다.
 
+## About
+
+순아래 키보드는 **두벌식 순아래 자판**을 제공하는 Android 키보드입니다.
+
+- **두벌식 순아래 (기본)**: 표준 10-9-7 배열. 자판의 원래 규칙대로 초성·중성·종성이 물리적 키 위치를 그대로 따릅니다.
+- **순아래 넓음 (와이드)**: 표준 배열에서 ㅐ·ㅔ를 제거하고 더 넓은 키 간격을 확보한 변형. ㅏㅣ → ㅐ, ㅓㅣ → ㅔ 조합 입력을 지원합니다.
+
 ## Features
 
 - Small size (<1MB)
@@ -12,6 +19,7 @@
 - Custom theme colors
 - Minimal permissions (only Vibrate)
 - Ads-free
+- Dubeolsik 순아래 Hangul input with Hangul combining (jamo composition)
 
 Feature it doesn't have and probably will never have:
 - Emojis
