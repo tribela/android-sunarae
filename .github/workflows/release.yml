@@ -1,4 +1,5 @@
-# Build the release APK and attach it to a GitHub Release.
+# Build the release APK and AAB, then attach both to a GitHub Release.
+# The AAB can be uploaded directly to the Play Store.
 # Trigger: v* tag push or manual dispatch.
 name: Release
 
@@ -10,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build Release APK
+    name: Build Release APK & AAB
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -34,11 +35,20 @@ jobs:
       - name: Build release APK
         run: ./gradlew assembleRelease
 
+      - name: Build release AAB
+        run: ./gradlew bundleRelease
+
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: release-apk
           path: app/build/outputs/apk/release/app-release.apk
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-aab
+          path: app/build/outputs/bundle/release/app-release.aab
 
   post-release:
     name: Create GitHub Release
@@ -53,10 +63,17 @@ jobs:
           name: release-apk
           path: release-artifacts
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: release-aab
+          path: release-artifacts
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          files: release-artifacts/app-release.apk
+          files: |
+            release-artifacts/app-release.apk
+            release-artifacts/app-release.aab
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
