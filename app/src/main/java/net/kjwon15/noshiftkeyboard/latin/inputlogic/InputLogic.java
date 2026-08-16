@@ -663,13 +663,11 @@ public final class InputLogic {
             commitComposingText();
         }
 
-        // TODO: Remove this special handling of digit letters.
-        // For backward compatibility. See {@link InputMethodService#sendKeyChar(char)}.
-        if (codePoint >= '0' && codePoint <= '9') {
-            sendDownUpKeyEvent(codePoint - '0' + KeyEvent.KEYCODE_0);
-            return;
-        }
-
+        // Digits are committed like every other code point. The legacy AOSP digit path
+        // (sendDownUpKeyEvent with KEYCODE_0-9) is unreliable on modern editors (Compose,
+        // WebView, custom InputConnections): key events travel through a separate, asynchronous
+        // binder and can be dropped or reordered when typing several digits in a row from the
+        // number pad. commitText() uses the same in-order pipeline as all other characters.
         mConnection.commitText(StringUtils.newSingleCodePointString(codePoint), 1);
     }
 
