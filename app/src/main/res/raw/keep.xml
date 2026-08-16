@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    R8 리소스 슈링커 보호 목록. 아래 리소스들은 코드에서 R 참조가 아닌
+    동적 이름 조회(resources.getIdentifier)로만 로드되므로, 슈링커가 "미사용"으로
+    판단해 릴리즈 APK에서 제거해 버린다. 제거되면 getXml(0)/getString(0) 크래시로
+    키보드가 뜨지 않는다 (v1.0.3 모토로라 크래시의 원인).
+
+    - keyboard_layout_set_*: KeyboardLayoutSet이 subtype 레이아웃 세트 이름으로 동적 로드
+    - kbd_*: 레이아웃 세트 XML이 @xml/kbd_* 로 참조 (transitive 유지 보장)
+    - locale_name_* / locale_name_in_root_locale_*: LocaleResourceUtils가 예외 로케일 표시명으로 동적 로드
+    - label_pause_key / label_wait_key: 키보드 XML의 !string/ 참조로 동적 로드
+-->
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@xml/keyboard_layout_set_*, @xml/kbd_*, @string/locale_name_*, @string/locale_name_in_root_locale_*, @string/label_pause_key, @string/label_wait_key" />
