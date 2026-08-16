@@ -32,6 +32,13 @@ android {
         // build (and any Play install) on the same device without uninstalling either.
         debug {
             applicationIdSuffix ".debug"
+            // Sign debug builds with the same release key when key.properties is present so
+            // the signature stays identical across dev machines. Without this, each PC uses
+            // its own ~/.android/debug.keystore and switching machines forces an
+            // uninstall/reinstall (INSTALL_FAILED_UPDATE_INCOMPATIBLE).
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
         }
         release {
             minifyEnabled true
