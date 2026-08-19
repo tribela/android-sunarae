@@ -72,10 +72,18 @@ jobs:
           name: release-aab
           path: release-artifacts
 
+      - name: Prepare release notes
+        run: |
+          vcode=$(grep -oP 'versionCode\s+\K[0-9]+' app/build.gradle)
+          f="metadata/ko-KR/changelogs/${vcode}.txt"
+          if [ -f "$f" ]; then cp "$f" RELEASE_NOTES.md
+          else echo "변경 사항을 추가해 주세요." > RELEASE_NOTES.md; fi
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.md
           files: |
             release-artifacts/app-release.apk
             release-artifacts/app-release.aab

@@ -244,6 +244,16 @@ public final class RichInputConnection {
         mTextBeforeCursor = "";
         mTextSelection = "";
         mTextAfterCursor = "";
+        mComposingText = null;
+    }
+
+    /**
+     * Clear the cached composing text without touching the editor. Called when the input
+     * session restarts so a stale composing region from a previous session cannot corrupt
+     * the expected-selection arithmetic in {@link #setComposingText} / {@link #commitText}.
+     */
+    public void clearComposingText() {
+        mComposingText = null;
     }
 
     /**

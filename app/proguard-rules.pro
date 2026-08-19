@@ -20,3 +20,13 @@
 -keep class net.kjwon15.noshiftkeyboard.latin.settings.SettingsFragment
 -keep class net.kjwon15.noshiftkeyboard.latin.settings.LanguagesSettingsFragment
 -keep class net.kjwon15.noshiftkeyboard.latin.settings.SingleLanguageSettingsFragment
+
+# Strip verbose/diagnostic Log calls from release builds only (R8 optimization).
+# Debug builds keep them for on-device diagnosis. Log.e (errors) is deliberately
+# left intact so real failures still reach logcat.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+    public static int i(...);
+    public static int w(...);
+}

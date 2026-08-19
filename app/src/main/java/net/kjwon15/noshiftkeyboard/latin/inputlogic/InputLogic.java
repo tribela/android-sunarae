@@ -23,6 +23,7 @@ package net.kjwon15.noshiftkeyboard.latin.inputlogic;
 
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -43,6 +44,7 @@ import net.kjwon15.noshiftkeyboard.latin.utils.SubtypeLocaleUtils;
  * This class manages the input logic.
  */
 public final class InputLogic {
+    private static final String TAG = "InputLogic";
     // TODO : Remove this member when we can.
     final LatinIME mLatinIME;
 
@@ -54,14 +56,28 @@ public final class InputLogic {
      * Hangul jamo combiner for Korean layouts. Jamo code points are routed here instead of being
      * committed directly; {@link #mConnection#setComposingText} shows the composition in progress
      * and it is finalized with {@link #mConnection#finishComposingText()} when a non-jamo key is
-     * pressed. Only active while {@link #mIsKoreanLayout} is true.
+     * pressed. Only active while the current subtype is a Korean layout.
      */
     private final HangulCombiner mHangulCombiner = new HangulCombiner();
+
     /**
-     * Whether the current keyboard layout is a Korean layout. Set from the current subtype's
-     * keyboard layout set; see {@link LatinIME#isKoreanLayout()}.
+     * Anchor (editor selection) where the current Hangul composition began. Used by
+     * {@link #onUpdateSelection} to ignore a stale re-report of the pre-typing cursor at the
+     * start of an input session: some apps re-send the initial cursor after the first keystroke,
+     * and committing on that would prematurely finalize the first jamo and split the first
+     * syllable into raw jamo ("ㄱㅏ" instead of "가"). {@code NO_SELECTION} while idle.
      */
-    private boolean mIsKoreanLayout = false;
+    private static final int NO_SELECTION = -1;
+    private int mCompositionStartSelection = NO_SELECTION;
+    /**
+     * Whether {@link #mCompositionStartSelection} holds a real editor position. The anchor is
+     * only meaningful when the IME knows the cursor; {@code NO_SELECTION} (-1) is
+     * indistinguishable from {@code RichInputConnection.INVALID_CURSOR_POSITION} (-1) when no
+     * selection report has arrived yet, so the int alone cannot tell "unknown cursor" from
+     * "known cursor at -1". Auto-commit on selection change is disabled while the anchor is
+     * unknown so a stale/late initial selection report cannot split the first jamo.
+     */
+    private boolean mHasCompositionStartSelection = false;
 
     /**
      * Create a new instance of the input logic.
@@ -81,7 +97,9 @@ public final class InputLogic {
     public void startInput() {
         mRecapitalizeStatus.disable(); // Do not perform recapitalize until the cursor is moved once
         mHangulCombiner.reset();
-        updateKoreanLayoutState();
+        mCompositionStartSelection = NO_SELECTION;
+        mHasCompositionStartSelection = false;
+        mConnection.clearComposingText();
     }
 
     public void clearCaches() {
@@ -95,14 +113,15 @@ public final class InputLogic {
         startInput();
     }
 
-    /** Refresh {@link #mIsKoreanLayout} from the current subtype's keyboard layout. */
-    private void updateKoreanLayoutState() {
-        mIsKoreanLayout = mLatinIME.isKoreanLayout();
-    }
-
-    /** Whether a Hangul composition is currently in progress. */
+    /**
+     * Whether a Hangul composition is currently in progress.
+     *
+     * <p>Queries the live subtype state instead of a cached flag: the flag was only refreshed in
+     * {@link #startInput()}, which can be delayed during IME lifecycle races, leaving the first
+     * jamo keypress to fall through to {@code commitText} and split the syllable into raw jamo.</p>
+     */
     private boolean isComposing() {
-        return mIsKoreanLayout && mHangulCombiner.combiningStateFeedback().length() > 0;
+        return mLatinIME.isKoreanLayout() && mHangulCombiner.combiningStateFeedback().length() > 0;
     }
 
     /**
@@ -112,6 +131,8 @@ public final class InputLogic {
     private void commitComposingText() {
         mConnection.finishComposingText();
         mHangulCombiner.reset();
+        mCompositionStartSelection = NO_SELECTION;
+        mHasCompositionStartSelection = false;
     }
 
     /**
@@ -190,10 +211,21 @@ public final class InputLogic {
      * @param newSelEnd new selection end
      */
     public void onUpdateSelection(final int newSelStart, final int newSelEnd) {
-        if (mConnection.hasCursorPosition()
+        final boolean commit =
+                mConnection.hasCursorPosition()
                 && (newSelStart != mConnection.getExpectedSelectionStart()
                 || newSelEnd != mConnection.getExpectedSelectionEnd())
-                && isComposing()) {
+                && isComposing()
+                && mHasCompositionStartSelection
+                && newSelStart != mCompositionStartSelection;
+        if (commit) {
+            Log.w(TAG, "onUpdateSelection(" + newSelStart + "," + newSelEnd
+                    + ") committed composition: expected="
+                    + mConnection.getExpectedSelectionStart() + ","
+                    + mConnection.getExpectedSelectionEnd()
+                    + " anchor=" + mCompositionStartSelection
+                    + " hasAnchor=" + mHasCompositionStartSelection
+                    + " composing=" + mHangulCombiner.combiningStateFeedback());
             commitComposingText();
         }
         mConnection.updateSelection(newSelStart, newSelEnd);
@@ -652,8 +684,23 @@ public final class InputLogic {
     // TODO: replace these two parameters with an InputTransaction
     void sendKeyCodePoint(final int codePoint) {
         // In a Korean layout, jamo code points are fed to the Hangul combiner and displayed as
-        // composing text instead of being committed directly.
-        if (mIsKoreanLayout && HangulCombiner.isHangul(codePoint)) {
+        // composing text instead of being committed directly. The live subtype is queried on
+        // every keypress (never a cached flag) so the first key after an IME lifecycle race
+        // still enters the combiner instead of being committed as a raw jamo.
+        if (mLatinIME.isKoreanLayout() && HangulCombiner.isHangul(codePoint)) {
+            if (mHangulCombiner.combiningStateFeedback().length() == 0) {
+                // A fresh composition begins here: record the anchor (cursor position where this
+                // syllable's typing started) so onUpdateSelection can tell a stale re-report of
+                // the pre-typing cursor apart from a genuine user cursor move. The anchor is only
+                // trusted when the cursor is actually known (hasCursorPosition()); otherwise the
+                // late initial selection report must be allowed to establish it without
+                // committing the first jamo.
+                mCompositionStartSelection = mConnection.getExpectedSelectionStart();
+                mHasCompositionStartSelection = mConnection.hasCursorPosition();
+                Log.i(TAG, "sendKeyCodePoint start composition cp=" + Integer.toHexString(codePoint)
+                        + " expected=" + mCompositionStartSelection
+                        + " hasAnchor=" + mHasCompositionStartSelection);
+            }
             mConnection.setComposingText(mHangulCombiner.process(codePoint), 1);
             return;
         }
