@@ -31,6 +31,7 @@ import android.view.inputmethod.EditorInfo;
 import net.kjwon15.noshiftkeyboard.event.Event;
 import net.kjwon15.noshiftkeyboard.event.InputTransaction;
 import net.kjwon15.noshiftkeyboard.hangul.HangulCombiner;
+import net.kjwon15.noshiftkeyboard.hangul.HangulCompositionSession;
 import net.kjwon15.noshiftkeyboard.latin.LatinIME;
 import net.kjwon15.noshiftkeyboard.latin.RichInputConnection;
 import net.kjwon15.noshiftkeyboard.latin.common.Constants;
@@ -52,32 +53,20 @@ public final class InputLogic {
     public final RichInputConnection mConnection;
     private final RecapitalizeStatus mRecapitalizeStatus = new RecapitalizeStatus();
 
-    /**
-     * Hangul jamo combiner for Korean layouts. Jamo code points are routed here instead of being
-     * committed directly; {@link #mConnection#setComposingText} shows the composition in progress
-     * and it is finalized with {@link #mConnection#finishComposingText()} when a non-jamo key is
-     * pressed. Only active while the current subtype is a Korean layout.
-     */
-    private final HangulCombiner mHangulCombiner = new HangulCombiner();
+    private static final int NO_SELECTION = -1;
+
+    private final HangulCompositionSession mHangulSession = new HangulCompositionSession();
 
     /**
-     * Anchor (editor selection) where the current Hangul composition began. Used by
-     * {@link #onUpdateSelection} to ignore a stale re-report of the pre-typing cursor at the
-     * start of an input session: some apps re-send the initial cursor after the first keystroke,
-     * and committing on that would prematurely finalize the first jamo and split the first
-     * syllable into raw jamo ("ㄱㅏ" instead of "가"). {@code NO_SELECTION} while idle.
+     * Editor's most recently reported selection. Reported asynchronously over the binder, it can
+     * lag the IME's {@link RichInputConnection#getExpectedSelectionStart() expected selection}
+     * while typing; comparing the two at the next input event (not inside
+     * {@code onUpdateSelection}) detects a real cursor move without committing on a stale
+     * in-flight report.
      */
-    private static final int NO_SELECTION = -1;
-    private int mCompositionStartSelection = NO_SELECTION;
-    /**
-     * Whether {@link #mCompositionStartSelection} holds a real editor position. The anchor is
-     * only meaningful when the IME knows the cursor; {@code NO_SELECTION} (-1) is
-     * indistinguishable from {@code RichInputConnection.INVALID_CURSOR_POSITION} (-1) when no
-     * selection report has arrived yet, so the int alone cannot tell "unknown cursor" from
-     * "known cursor at -1". Auto-commit on selection change is disabled while the anchor is
-     * unknown so a stale/late initial selection report cannot split the first jamo.
-     */
-    private boolean mHasCompositionStartSelection = false;
+    private int mReportedSelStart = NO_SELECTION;
+    private int mReportedSelEnd = NO_SELECTION;
+    private boolean mHasReportedSelection = false;
 
     /**
      * Create a new instance of the input logic.
@@ -96,9 +85,10 @@ public final class InputLogic {
      */
     public void startInput() {
         mRecapitalizeStatus.disable(); // Do not perform recapitalize until the cursor is moved once
-        mHangulCombiner.reset();
-        mCompositionStartSelection = NO_SELECTION;
-        mHasCompositionStartSelection = false;
+        mHangulSession.reset();
+        mReportedSelStart = NO_SELECTION;
+        mReportedSelEnd = NO_SELECTION;
+        mHasReportedSelection = false;
         mConnection.clearComposingText();
     }
 
@@ -121,7 +111,7 @@ public final class InputLogic {
      * jamo keypress to fall through to {@code commitText} and split the syllable into raw jamo.</p>
      */
     private boolean isComposing() {
-        return mLatinIME.isKoreanLayout() && mHangulCombiner.combiningStateFeedback().length() > 0;
+        return mHangulSession.isComposing(mLatinIME.isKoreanLayout());
     }
 
     /**
@@ -129,10 +119,7 @@ public final class InputLogic {
      * Must only be called while {@link #isComposing()}.
      */
     private void commitComposingText() {
-        mConnection.finishComposingText();
-        mHangulCombiner.reset();
-        mCompositionStartSelection = NO_SELECTION;
-        mHasCompositionStartSelection = false;
+        mHangulSession.commit(mConnection);
     }
 
     /**
@@ -145,6 +132,13 @@ public final class InputLogic {
         }
     }
 
+    private void commitIfCursorMoved() {
+        mHangulSession.commitIfCursorMoved(mReportedSelStart, mReportedSelEnd,
+                mConnection.getExpectedSelectionStart(), mConnection.getExpectedSelectionEnd(),
+                mConnection.hasCursorPosition(), mHasReportedSelection,
+                mConnection, mLatinIME.isKoreanLayout());
+    }
+
     /**
      * Delete one unit as the delete swipe moves. While a Hangul composition is in
      * progress this undoes one jamo (same as backspace); otherwise it deletes the
@@ -152,7 +146,7 @@ public final class InputLogic {
      */
     public void handleDeleteSwipe() {
         if (isComposing()) {
-            final String after = mHangulCombiner.processDelete();
+            final String after = mHangulSession.processDelete();
             if (after.length() == 0) {
                 mConnection.setComposingText("", 1);
             } else {
@@ -198,37 +192,35 @@ public final class InputLogic {
      * part of normal typing or whether it was an explicit cursor move by the user. In any case,
      * do the necessary adjustments.
      *
-     * <p>When the user moves the cursor by hand (tapping the text field, hardware arrow keys,
-     * selection handles) the reported selection differs from the one the IME set itself, which
-     * is exactly what {@link RichInputConnection} tracks the expected selection for. Any Hangul
-     * composition in progress then refers to a stale position: typing a jamo afterwards would
-     * append it to the old composition and {@code setComposingText} would replace the whole
-     * composing region instead of inserting at the cursor (e.g. "가나다라" + cursor moved to the
-     * middle + "하" would yield "가나다라하" instead of "가나하다라"). Finalize the composition
-     * and reset the combiner so the next key starts a fresh composition at the new cursor.
+     * <p>This no longer commits the composition based on a fragile selection heuristic (a stale
+     * in-flight report of the IME's own edit could look like a user move and split a syllable
+     * into raw jamo). Instead it records the reported selection and commits only on the
+     * authoritative signal — the editor dropping the composing span, which is how editors
+     * finalize a composition when the user moves the cursor away. A genuine cursor move that
+     * keeps the span is detected synchronously at the next input event
+     * ({@link #commitIfCursorMoved()}).
      *
      * @param newSelStart new selection start
      * @param newSelEnd new selection end
+     * @param spanStart composing span start, or -1 if no composing span is active
+     * @param spanEnd composing span end, or -1 if no composing span is active
      */
-    public void onUpdateSelection(final int newSelStart, final int newSelEnd) {
-        final boolean commit =
-                mConnection.hasCursorPosition()
-                && (newSelStart != mConnection.getExpectedSelectionStart()
-                || newSelEnd != mConnection.getExpectedSelectionEnd())
-                && isComposing()
-                && mHasCompositionStartSelection
-                && newSelStart != mCompositionStartSelection;
-        if (commit) {
-            Log.w(TAG, "onUpdateSelection(" + newSelStart + "," + newSelEnd
-                    + ") committed composition: expected="
-                    + mConnection.getExpectedSelectionStart() + ","
-                    + mConnection.getExpectedSelectionEnd()
-                    + " anchor=" + mCompositionStartSelection
-                    + " hasAnchor=" + mHasCompositionStartSelection
-                    + " composing=" + mHangulCombiner.combiningStateFeedback());
-            commitComposingText();
+    public void onUpdateSelection(final int newSelStart, final int newSelEnd,
+            final int spanStart, final int spanEnd) {
+        mReportedSelStart = newSelStart;
+        mReportedSelEnd = newSelEnd;
+        mHasReportedSelection = true;
+
+        mHangulSession.handleUpdateSelection(newSelStart, newSelEnd,
+                spanStart, spanEnd, mConnection, mLatinIME.isKoreanLayout());
+
+        // Sync the expected selection to the editor's reported position only while not actively
+        // composing. During a composition the expected selection is owned by setComposingText /
+        // commitText (the span end); letting a report overwrite it here is what forced the
+        // fragile anchor logic and caused false-positive commits.
+        if (!isComposing()) {
+            mConnection.updateSelection(newSelStart, newSelEnd);
         }
-        mConnection.updateSelection(newSelStart, newSelEnd);
     }
 
     public void reloadTextCache() {
@@ -473,7 +465,7 @@ public final class InputLogic {
         // While a Hangul composition is in progress, backspace undoes one jamo at a time
         // (까 -> 가 -> ㄱ -> nothing).
         if (isComposing()) {
-            final String after = mHangulCombiner.processDelete();
+            final String after = mHangulSession.processDelete();
             if (after.length() == 0) {
                 // The whole composition was undone: clear the composing region entirely instead
                 // of finishing it, which would wrongly commit the remaining composing text.
@@ -688,20 +680,16 @@ public final class InputLogic {
         // every keypress (never a cached flag) so the first key after an IME lifecycle race
         // still enters the combiner instead of being committed as a raw jamo.
         if (mLatinIME.isKoreanLayout() && HangulCombiner.isHangul(codePoint)) {
-            if (mHangulCombiner.combiningStateFeedback().length() == 0) {
-                // A fresh composition begins here: record the anchor (cursor position where this
-                // syllable's typing started) so onUpdateSelection can tell a stale re-report of
-                // the pre-typing cursor apart from a genuine user cursor move. The anchor is only
-                // trusted when the cursor is actually known (hasCursorPosition()); otherwise the
-                // late initial selection report must be allowed to establish it without
-                // committing the first jamo.
-                mCompositionStartSelection = mConnection.getExpectedSelectionStart();
-                mHasCompositionStartSelection = mConnection.hasCursorPosition();
+            commitIfCursorMoved();
+            boolean wasEmpty = mHangulSession.displayText().isEmpty();
+            mHangulSession.startIfNeeded(mConnection.getExpectedSelectionStart(),
+                    mConnection.hasCursorPosition());
+            if (wasEmpty) {
                 Log.i(TAG, "sendKeyCodePoint start composition cp=" + Integer.toHexString(codePoint)
-                        + " expected=" + mCompositionStartSelection
-                        + " hasAnchor=" + mHasCompositionStartSelection);
+                        + " expected=" + mConnection.getExpectedSelectionStart()
+                        + " hasAnchor=" + mConnection.hasCursorPosition());
             }
-            mConnection.setComposingText(mHangulCombiner.process(codePoint), 1);
+            mConnection.setComposingText(mHangulSession.feed(codePoint), 1);
             return;
         }
 
@@ -723,6 +711,6 @@ public final class InputLogic {
      * (committed composing word + syllable being combined), without touching the editor.
      */
     String hangulCombiningFeedback() {
-        return mHangulCombiner.combiningStateFeedback();
+        return mHangulSession.displayText();
     }
 }
