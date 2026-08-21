@@ -23,9 +23,8 @@
 
 # Hangul composition must not be optimized away — R8 fullMode can inline/merge the
 # combiner state machine. Keep it intact; release-only jamo separation was traced to
-# aggressive optimization here (B-plan fallback if scoring fails).
+# aggressive optimization here (B-plan).
 -keep class net.kjwon15.noshiftkeyboard.hangul.** { *; }
--keep class net.kjwon15.noshiftkeyboard.latin.inputlogic.HangulCompositionSession { *; }
 
 # Strip verbose/diagnostic Log calls from release builds only (R8 optimization).
 # Debug builds keep them for on-device diagnosis. Log.e (errors) is deliberately

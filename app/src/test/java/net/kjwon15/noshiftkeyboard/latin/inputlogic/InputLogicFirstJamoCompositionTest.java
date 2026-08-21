@@ -77,11 +77,11 @@ public class InputLogicFirstJamoCompositionTest {
         logic.sendKeyCodePoint(0x3131); // ㄱ
 
         // (1) 호스트가 조합 스팬을 반영한 실제 커서 (1,1) 보고 → expected 확립.
-        logic.onUpdateSelection(1, 1, 0, 1);
+        logic.onUpdateSelection(1, 1);
 
         // (2) 호스트가 원래(초기) 커서 (0,0)을 stale 재보고 → pre-fix는 이를
         // 사용자 커서 이동으로 오인해 첫 조합을 커밋한다.
-        logic.onUpdateSelection(0, 0, 0, 1);
+        logic.onUpdateSelection(0, 0);
 
         // 두 번째 jamo가 첫 조합을 이어 "가"로 완성되어야 한다.
         logic.sendKeyCodePoint(0x314F); // ㅏ
@@ -121,7 +121,7 @@ public class InputLogicFirstJamoCompositionTest {
         logic.sendKeyCodePoint(0x3141); // ㅁ
 
         // 조합 스팬 반영 커서 (1,1) 보고가 사용자 이동으로 오인되지 않아야 한다.
-        logic.onUpdateSelection(1, 1, 0, 1);
+        logic.onUpdateSelection(1, 1);
 
         // 두 번째 jamo가 첫 조합을 이어 "마"로 완성되어야 한다.
         logic.sendKeyCodePoint(0x314F); // ㅏ

@@ -37,8 +37,7 @@ public class InputLogicHangulCursorTest {
         logic.startInput();
         // 입력 시작 시 프레임워크가 보고하는 초기 커서 위치를 흉내 낸다. 이 호출이 있어야
         // RichInputConnection이 예상 커서 위치를 갖게 되고 이후 수동 이동을 감지할 수 있다.
-        // (조합 중이 아니므로 composing span은 비활성(-1)이다.)
-        logic.onUpdateSelection(0, 0, -1, -1);
+        logic.onUpdateSelection(0, 0);
     }
 
     /** compat jamo 코드포인트를 InputLogic을 통해 조합기에 전달한다. */
@@ -63,9 +62,8 @@ public class InputLogicHangulCursorTest {
     public void manualCursorMoveCommitsCompositionAndResetsCombiner() {
         typeGaNaDaRa();
 
-        // 사용자가 손으로 커서를 "가나" 뒤(위치 2)로 옮김. 대부분의 편집기는 커서를 옮기며
-        // composing span을 해제(-1,-1)하므로, 이것이 권위 있는 "조합 포기" 신호가 된다.
-        logic.onUpdateSelection(2, 2, -1, -1);
+        // 사용자가 손으로 커서를 "가나" 뒤(위치 2)로 옮김: IME가 예상한 위치(4)와 다르다.
+        logic.onUpdateSelection(2, 2);
 
         // 조합이 확정되고 조합기가 리셋되어야 한다.
         assertEquals("", logic.hangulCombiningFeedback());
@@ -77,52 +75,17 @@ public class InputLogicHangulCursorTest {
     }
 
     @Test
-    public void cursorMoveIntoComposingSpanMiddleStartsFreshAtNextKey() {
-        typeGaNaDaRa();
-
-        // 편집기가 span을 유지한 채 커서만 span 안(위치 2)으로 옮긴 드문 경우: 이 시점에선
-        // 커밋하지 않는다 (span이 아직 활성이므로). 조합은 유지된다.
-        logic.onUpdateSelection(2, 2, 0, 4);
-        assertEquals("가나다라", logic.hangulCombiningFeedback());
-
-        // 다음 jamo 입력 시점에 동기적으로 "커서가 옮겨졌음"을 감지해 조합을 커밋하므로,
-        // "하"가 옛 조합 끝에 붙지 않고 커서 위치에서 새 조합을 시작한다 → "가나하다라".
-        send(0x314E); // ㅎ
-        send(0x314F); // ㅏ
-        assertEquals("하", logic.hangulCombiningFeedback());
-    }
-
-    @Test
     public void imeDrivenSelectionUpdateKeepsComposition() {
         typeGaNaDaRa();
 
-        // IME 자신이 setComposingText로 만든 선택 위치(4)와 활성 span이 프레임워크에서 그대로
-        // 돌아온 경우: 수동 이동이 아니므로 조합을 유지해야 한다.
-        logic.onUpdateSelection(4, 4, 0, 4);
+        // IME 자신이 setComposingText로 만든 선택 위치(4)가 프레임워크에서 그대로 돌아온 경우:
+        // 수동 이동이 아니므로 조합을 유지해야 한다.
+        logic.onUpdateSelection(4, 4);
 
         assertEquals("가나다라", logic.hangulCombiningFeedback());
 
         // 조합이 계속 이어져야 한다 (가나다라 + ㄱ → 가나다락, ㄱ은 라의 받침).
         send(0x3131); // ㄱ
         assertEquals("가나다락", logic.hangulCombiningFeedback());
-    }
-
-    @Test
-    public void stalePreTypingCursorReportDoesNotSplitFirstSyllable() {
-        // 첫 jamo 후 일부 편집기가 조합 전 커서(0)를 늦게 재전송한다. 이 stale 보고가
-        // "커서 이동"으로 오인되면 첫 음절이 raw 자모로 분리된다 (ㄱㅏ 대신 ㄱ+ㅏ).
-        send(0x3131); // ㄱ (조합 시작, 앵커 = 0)
-        send(0x314F); // ㅏ
-
-        // 조합 전 커서(0)가 그대로 조합 끝(1)으로 보고되는 게 아니라, 오래된 위치 0이 재전송.
-        // span은 여전히 활성([0,1))이므로 onUpdateSelection에서 커밋되지 않아야 한다.
-        logic.onUpdateSelection(0, 0, 0, 1);
-
-        // stale 보고가 무시되어 "가" 조합이 유지되어야 한다 (첫 음절 분리 방지).
-        assertEquals("가", logic.hangulCombiningFeedback());
-
-        // 이후 jamo도 정상적으로 이어진다.
-        send(0x3134); // ㄴ
-        assertEquals("간", logic.hangulCombiningFeedback());
     }
 }
