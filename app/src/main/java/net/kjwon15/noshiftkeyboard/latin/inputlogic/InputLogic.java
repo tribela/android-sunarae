@@ -217,11 +217,25 @@ public final class InputLogic {
         return last >= 0xAC00 && last <= 0xD7A3;
     }
 
+    // 테스트용 오버로드 — 실제 에디터는 span을 함께 주지만 단위테스트는 2인자로 호출한다.
     public void onUpdateSelection(final int newSelStart, final int newSelEnd) {
+        if (isComposing() && mHasCompositionStartSelection) {
+            onUpdateSelection(newSelStart, newSelEnd,
+                    mCompositionStartSelection, mConnection.getExpectedSelectionStart());
+        } else {
+            onUpdateSelection(newSelStart, newSelEnd, -1, -1);
+        }
+    }
+
+    public void onUpdateSelection(final int newSelStart, final int newSelEnd,
+            final int spanStart, final int spanEnd) {
         final boolean isAnchorMove = mHasCompositionStartSelection
                 && newSelStart == mCompositionStartSelection;
-        // 첫 자모 직후 stale 재보고만 무시하고, 맨 앞으로의 의도적 이동은 커밋한다.
+        final boolean isSpanCleared = spanStart == -1 && spanEnd == -1;
+        // stale 재보고는 span이 유지된 채 anchor로 돌아오고, 진짜 탭 이동은 span이 해제된다.
+        // 단일 미완성 자모(ㄱ)라도 span이 해제됐으면 진짜 이동으로 보고 커밋한다.
         final boolean shouldIgnoreAnchorMove = isAnchorMove
+                && !isSpanCleared
                 && !isLastComposingSyllableComplete()
                 && mHangulCombiner.combiningStateFeedback().length() <= 1;
         final boolean isRealCommit;

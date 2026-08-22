@@ -103,4 +103,36 @@ public class InputLogicHangulCursorTest {
         send(0x3141); // ㅁ
         assertEquals("ㅁ", logic.hangulCombiningFeedback());
     }
+
+    @Test
+    public void incompleteSingleJamoAnchorMoveWithSpanClearedCommits() {
+        send(0x3131); // ㄱ (미완성, 길이1)
+
+        // 에디터가 span을 해제하며 anchor로 보고한 진짜 탭 이동 — 커밋해야 한다.
+        // stale 재보고(span 유지)와 구분된다.
+        logic.onUpdateSelection(0, 0, -1, -1);
+
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        send(0x3141); // ㅁ
+        assertEquals("ㅁ", logic.hangulCombiningFeedback());
+    }
+
+    @Test
+    public void incompleteMultiJamoMoveToBeginningStartsFresh() {
+        // ㄱㄴㄷㄹ 미완성 조합 (각 자모가 받침으로 안 붙어 길이 4)
+        send(0x3131); // ㄱ
+        send(0x3134); // ㄴ
+        send(0x3137); // ㄷ
+        send(0x3139); // ㄹ
+        assertEquals("ㄱㄴㄷㄹ", logic.hangulCombiningFeedback());
+
+        // 맨 앞으로 이동 — 미완성이어도 커밋하고 다음 입력은 맨 앞에서 fresh.
+        logic.onUpdateSelection(0, 0);
+
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        send(0x3141); // ㅁ
+        assertEquals("ㅁ", logic.hangulCombiningFeedback());
+    }
 }
