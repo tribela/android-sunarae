@@ -88,4 +88,19 @@ public class InputLogicHangulCursorTest {
         send(0x3131); // ㄱ
         assertEquals("가나다락", logic.hangulCombiningFeedback());
     }
+
+    @Test
+    public void cursorMoveToBeginningOfComposingWordStartsFresh() {
+        typeGaNaDaRa();
+
+        // 단어 맨 앞으로 커서 이동 — 가나다라 조합을 커밋하고 리셋해야 한다.
+        // 이전 버그: anchor(0)로의 이동을 stale로 오인해 커밋하지 않고 다음 자모가 끝에 붙어
+        // "가나다람"이 됐다. 기대: "ㅁ가나다라".
+        logic.onUpdateSelection(0, 0);
+
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        send(0x3141); // ㅁ
+        assertEquals("ㅁ", logic.hangulCombiningFeedback());
+    }
 }

@@ -210,15 +210,32 @@ public final class InputLogic {
      * @param newSelStart new selection start
      * @param newSelEnd new selection end
      */
+    private boolean isLastComposingSyllableComplete() {
+        final String fb = mHangulCombiner.combiningStateFeedback();
+        if (fb.isEmpty()) return false;
+        final char last = fb.charAt(fb.length() - 1);
+        return last >= 0xAC00 && last <= 0xD7A3;
+    }
+
     public void onUpdateSelection(final int newSelStart, final int newSelEnd) {
-        final boolean commit =
-                mConnection.hasCursorPosition()
-                && (newSelStart != mConnection.getExpectedSelectionStart()
-                || newSelEnd != mConnection.getExpectedSelectionEnd())
-                && isComposing()
-                && mHasCompositionStartSelection
-                && newSelStart != mCompositionStartSelection;
-        if (commit) {
+        final boolean isAnchorMove = mHasCompositionStartSelection
+                && newSelStart == mCompositionStartSelection;
+        // 첫 자모 직후 stale 재보고만 무시하고, 맨 앞으로의 의도적 이동은 커밋한다.
+        final boolean shouldIgnoreAnchorMove = isAnchorMove
+                && !isLastComposingSyllableComplete()
+                && mHangulCombiner.combiningStateFeedback().length() <= 1;
+        final boolean isRealCommit;
+        if (!mConnection.hasCursorPosition() || !isComposing() || !mHasCompositionStartSelection) {
+            isRealCommit = false;
+        } else if (newSelStart == mConnection.getExpectedSelectionStart()
+                && newSelEnd == mConnection.getExpectedSelectionEnd()) {
+            isRealCommit = false;
+        } else if (shouldIgnoreAnchorMove) {
+            isRealCommit = false;
+        } else {
+            isRealCommit = true;
+        }
+        if (isRealCommit) {
             Log.w(TAG, "onUpdateSelection(" + newSelStart + "," + newSelEnd
                     + ") committed composition: expected="
                     + mConnection.getExpectedSelectionStart() + ","
