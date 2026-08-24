@@ -99,7 +99,9 @@ public final class InputLogic {
         mHangulCombiner.reset();
         mCompositionStartSelection = NO_SELECTION;
         mHasCompositionStartSelection = false;
-        mConnection.clearComposingText();
+        // Finalize any composing span the previous session left in the editor before dropping
+        // the local tracker, so a stale span cannot survive into the new session.
+        mConnection.finishPendingComposingText();
     }
 
     public void clearCaches() {
@@ -146,6 +148,21 @@ public final class InputLogic {
     }
 
     /**
+     * Undo a Hangul composition entirely: clear the composing region and finalize it.
+     *
+     * <p>Setting an empty composing text is not enough on some editors (older WebViews,
+     * some Compose text fields) that keep a zero-length composing span behind, so the
+     * region is finished right after clearing. The composition anchor is also reset so
+     * the next jamo key starts a genuinely fresh composition.</p>
+     */
+    private void clearComposingRegion() {
+        mConnection.setComposingText("", 1);
+        mConnection.finishComposingText();
+        mCompositionStartSelection = NO_SELECTION;
+        mHasCompositionStartSelection = false;
+    }
+
+    /**
      * Delete one unit as the delete swipe moves. While a Hangul composition is in
      * progress this undoes one jamo (same as backspace); otherwise it deletes the
      * selected text or the character before the cursor.
@@ -154,7 +171,7 @@ public final class InputLogic {
         if (isComposing()) {
             final String after = mHangulCombiner.processDelete();
             if (after.length() == 0) {
-                mConnection.setComposingText("", 1);
+                clearComposingRegion();
             } else {
                 mConnection.setComposingText(after, 1);
             }
@@ -508,7 +525,7 @@ public final class InputLogic {
             if (after.length() == 0) {
                 // The whole composition was undone: clear the composing region entirely instead
                 // of finishing it, which would wrongly commit the remaining composing text.
-                mConnection.setComposingText("", 1);
+                clearComposingRegion();
             } else {
                 mConnection.setComposingText(after, 1);
             }

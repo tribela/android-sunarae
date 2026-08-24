@@ -257,6 +257,22 @@ public final class RichInputConnection {
     }
 
     /**
+     * Finalize a composing span left over from a previous input session, then clear the
+     * local cache. Called from input-session boundaries: the previous session may have ended
+     * without its composing region being finalized (IME lifecycle races, app-initiated
+     * restarts), leaving an active span in the editor while this side already lost track of
+     * it. Committing it first keeps the editor text intact and the expected-selection
+     * arithmetic consistent; finishing text never moves the cursor, so no selection cache
+     * adjustment is needed.
+     */
+    public void finishPendingComposingText() {
+        if (mComposingText != null && mComposingText.length() > 0 && isConnected()) {
+            mIC.finishComposingText();
+        }
+        mComposingText = null;
+    }
+
+    /**
      * Calls {@link InputConnection#commitText(CharSequence, int)}.
      *
      * @param text The text to commit. This may include styles.

@@ -135,4 +135,48 @@ public class InputLogicHangulCursorTest {
         send(0x3141); // ㅁ
         assertEquals("ㅁ", logic.hangulCombiningFeedback());
     }
+
+    @Test
+    public void deleteSwipeUndoingWholeCompositionResetsAnchor() {
+        send(0x3131); // ㄱ 미완성 단일 자모
+        assertEquals("ㄱ", logic.hangulCombiningFeedback());
+
+        // 조합 전체 소거: 빈 span 정리 + anchor 리셋까지 이뤄져야 한다.
+        logic.handleDeleteSwipe();
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        // 소거 직후의 selection 보고는 커밋을 유발하지 않고, 다음 자모는 fresh 시작.
+        logic.onUpdateSelection(3, 3);
+        send(0x3141); // ㅁ
+        assertEquals("ㅁ", logic.hangulCombiningFeedback());
+    }
+
+    @Test
+    public void repeatedDeleteSwipeEmptiesMultiSyllableComposition() {
+        typeGaNaDaRa(); // 가나다라
+
+        // jamo 단위 역추적을 조합이 완전히 빌 때까지 반복한다.
+        // (스냅샷 수는 음절 경계 커밋에 따라 달라지므로 고정 횟수가 아닌 조건 반복)
+        for (int i = 0; i < 32 && !logic.hangulCombiningFeedback().isEmpty(); i++) {
+            logic.handleDeleteSwipe();
+        }
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        send(0x314F); // ㅏ
+        assertEquals("ㅏ", logic.hangulCombiningFeedback());
+    }
+
+    @Test
+    public void restartInputClearsPendingCompositionState() {
+        send(0x3131); // ㄱ 조합 중
+        assertEquals("ㄱ", logic.hangulCombiningFeedback());
+
+        // 입력 세션 재시작: 잔여 조합 상태와 anchor가 완전히 리셋되어야 한다.
+        logic.startInput();
+        assertEquals("", logic.hangulCombiningFeedback());
+
+        logic.onUpdateSelection(1, 1);
+        send(0x314F); // ㅏ
+        assertEquals("ㅏ", logic.hangulCombiningFeedback());
+    }
 }
