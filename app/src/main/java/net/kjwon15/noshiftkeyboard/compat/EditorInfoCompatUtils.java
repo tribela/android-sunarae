@@ -20,6 +20,9 @@ package net.kjwon15.noshiftkeyboard.compat;
 import android.os.LocaleList;
 import android.view.inputmethod.EditorInfo;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 public final class EditorInfoCompatUtils {
@@ -51,15 +54,26 @@ public final class EditorInfoCompatUtils {
         }
     }
 
-    public static Locale getPrimaryHintLocale(final EditorInfo editorInfo) {
+    public static List<Locale> getHintLocales(final EditorInfo editorInfo) {
         if (editorInfo == null) {
-            return null;
+            return Collections.emptyList();
         }
-
         LocaleList localeList = editorInfo.hintLocales;
-        if (localeList != null && !localeList.isEmpty())
-            return localeList.get(0);
+        if (localeList == null || localeList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        final ArrayList<Locale> locales = new ArrayList<>(localeList.size());
+        for (int i = 0; i < localeList.size(); i++) {
+            locales.add(localeList.get(i));
+        }
+        return Collections.unmodifiableList(locales);
+    }
 
+    public static Locale getPrimaryHintLocale(final EditorInfo editorInfo) {
+        List<Locale> locales = getHintLocales(editorInfo);
+        if (!locales.isEmpty()) {
+            return locales.get(0);
+        }
         return null;
     }
 }

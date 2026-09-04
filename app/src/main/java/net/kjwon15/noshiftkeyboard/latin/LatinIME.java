@@ -49,11 +49,16 @@ import android.view.inputmethod.EditorInfo;
 
 import java.io.FileDescriptor;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import net.kjwon15.noshiftkeyboard.compat.EditorInfoCompatUtils;
 import net.kjwon15.noshiftkeyboard.compat.PreferenceManagerCompat;
+import net.kjwon15.noshiftkeyboard.latin.Subtype;
+import net.kjwon15.noshiftkeyboard.latin.common.LocaleUtils;
+import net.kjwon15.noshiftkeyboard.latin.utils.SubtypeLocaleUtils;
 import net.kjwon15.noshiftkeyboard.event.Event;
 import net.kjwon15.noshiftkeyboard.event.InputTransaction;
 import net.kjwon15.noshiftkeyboard.keyboard.Keyboard;
@@ -364,17 +369,53 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         loadKeyboard();
     }
 
+    private String findBestSupportedLocaleString(final Locale hintLocale) {
+        final List<String> supported = SubtypeLocaleUtils.getSupportedLocales();
+        final List<Locale> supportedLocales = new ArrayList<>(supported.size());
+        for (final String s : supported) {
+            supportedLocales.add(LocaleUtils.constructLocaleFromString(s));
+        }
+        final Locale best = LocaleUtils.findBestLocale(hintLocale, supportedLocales);
+        if (best == null) {
+            return null;
+        }
+        return LocaleUtils.getLocaleString(best);
+    }
+
     void onStartInputInternal(final EditorInfo editorInfo, final boolean restarting) {
         super.onStartInput(editorInfo, restarting);
 
-        // If the primary hint language does not match the current subtype language, then try
-        // to switch to the primary hint language.
-        // TODO: Support all the locales in EditorInfo#hintLocales.
-        final Locale primaryHintLocale = EditorInfoCompatUtils.getPrimaryHintLocale(editorInfo);
-        if (primaryHintLocale == null) {
+        final List<Locale> hintLocales = EditorInfoCompatUtils.getHintLocales(editorInfo);
+        if (hintLocales.isEmpty()) {
+            mRichImm.clearTempSubtype();
             return;
         }
-        mRichImm.setCurrentSubtype(primaryHintLocale);
+        boolean switched = false;
+        for (final Locale hint : hintLocales) {
+            if (mRichImm.setCurrentSubtype(hint)) {
+                if (mRichImm.isHintOverrideActive()) {
+                    mRichImm.clearTempSubtype();
+                }
+                switched = true;
+                break;
+            }
+            final String bestSupportedStr = findBestSupportedLocaleString(hint);
+            if (bestSupportedStr != null) {
+                final Subtype temp = SubtypeLocaleUtils.getDefaultSubtype(bestSupportedStr, getResources());
+                if (temp != null) {
+                    if (temp.equals(mRichImm.getCurrentSubtype())) {
+                        switched = true;
+                        break;
+                    }
+                    mRichImm.setTempSubtype(temp);
+                    switched = true;
+                    break;
+                }
+            }
+        }
+        if (!switched) {
+            mRichImm.clearTempSubtype();
+        }
     }
 
     void onStartInputViewInternal(final EditorInfo editorInfo, final boolean restarting) {
@@ -479,6 +520,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     void onFinishInputInternal() {
+        mRichImm.clearTempSubtype();
         super.onFinishInput();
 
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
@@ -488,6 +530,9 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     }
 
     void onFinishInputViewInternal(final boolean finishingInput) {
+        if (mRichImm != null && mRichImm.isHintOverrideActive()) {
+            mRichImm.clearTempSubtype();
+        }
         super.onFinishInputView(finishingInput);
     }
 

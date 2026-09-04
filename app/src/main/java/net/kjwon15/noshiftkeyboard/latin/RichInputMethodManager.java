@@ -139,6 +139,9 @@ public class RichInputMethodManager {
          *  to the beginning of the list, so this should normally be 0. */
         private int mCurrentSubtypeIndex;
 
+        private Subtype mHintOverrideSubtype;
+        private Subtype mSavedSubtypeBeforeHint;
+
         private final SharedPreferences mPrefs;
         private SubtypeChangedListener mSubtypeChangedListener;
 
@@ -161,6 +164,8 @@ public class RichInputMethodManager {
                 mSubtypes = subtypes;
             }
             mCurrentSubtypeIndex = 0;
+            mHintOverrideSubtype = null;
+            mSavedSubtypeBeforeHint = null;
         }
 
         /**
@@ -299,12 +304,16 @@ public class RichInputMethodManager {
         }
 
         /**
-         * Move the current subtype to the beginning of the list to allow the rest of the subtypes
-         * to be cycled through before possibly switching to a separate input method. This should be
-         * called whenever the user is done cycling through subtypes (eg: when a subtype is actually
-         * used or the keyboard is closed).
-         */
+          * Move the current subtype to the beginning of the list to allow the rest of the subtypes
+          * to be cycled through before possibly switching to a separate input method. This should be
+          * called whenever the user is done cycling through subtypes (eg: when a subtype is actually
+          * used or the keyboard is closed).
+          */
         public synchronized void resetSubtypeCycleOrder() {
+            if (mHintOverrideSubtype != null) {
+                // While ephemeral hint override is active, keep it until the field is left.
+                return;
+            }
             if (mCurrentSubtypeIndex == 0) {
                 return;
             }
@@ -400,11 +409,46 @@ public class RichInputMethodManager {
         }
 
         /**
-         * Get the subtype that is currently in use (or will be once the keyboard is opened).
-         * @return the current subtype.
-         */
+          * Get the subtype that is currently in use (or will be once the keyboard is opened).
+          * @return the current subtype.
+          */
         public synchronized Subtype getCurrentSubtype() {
+            if (mHintOverrideSubtype != null) {
+                return mHintOverrideSubtype;
+            }
             return mSubtypes.get(mCurrentSubtypeIndex);
+        }
+
+        public synchronized boolean setTempSubtype(final Subtype temp) {
+            if (temp == null) {
+                return false;
+            }
+            if (temp.equals(getCurrentSubtype())) {
+                return true;
+            }
+            if (mHintOverrideSubtype == null) {
+                mSavedSubtypeBeforeHint = mSubtypes.get(mCurrentSubtypeIndex);
+            }
+            mHintOverrideSubtype = temp;
+            notifySubtypeChanged();
+            return true;
+        }
+
+        public synchronized void clearTempSubtype() {
+            if (mHintOverrideSubtype == null) {
+                return;
+            }
+            mHintOverrideSubtype = null;
+            mSavedSubtypeBeforeHint = null;
+            notifySubtypeChanged();
+        }
+
+        public synchronized boolean isHintOverrideActive() {
+            return mHintOverrideSubtype != null;
+        }
+
+        public synchronized Subtype getHintOverrideSubtype() {
+            return mHintOverrideSubtype;
         }
     }
 
@@ -526,11 +570,27 @@ public class RichInputMethodManager {
     }
 
     /**
-     * Get the subtype that is currently in use.
-     * @return the current subtype.
-     */
+      * Get the subtype that is currently in use.
+      * @return the current subtype.
+      */
     public Subtype getCurrentSubtype() {
         return mSubtypeList.getCurrentSubtype();
+    }
+
+    public boolean setTempSubtype(final Subtype temp) {
+        return mSubtypeList.setTempSubtype(temp);
+    }
+
+    public void clearTempSubtype() {
+        mSubtypeList.clearTempSubtype();
+    }
+
+    public boolean isHintOverrideActive() {
+        return mSubtypeList.isHintOverrideActive();
+    }
+
+    public Subtype getHintOverrideSubtype() {
+        return mSubtypeList.getHintOverrideSubtype();
     }
 
     /**
