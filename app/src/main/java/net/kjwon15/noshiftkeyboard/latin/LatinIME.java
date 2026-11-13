@@ -334,6 +334,16 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         mInputView = view;
         updateSoftInputWindowLayoutParameters();
         view.requestApplyInsets();
+        // A newly created input view never has a keyboard attached. onStartInputView()
+        // normally loads it, but after a configuration change onStartInputView() can have
+        // already run against the previous view; the new view would then be laid out with
+        // no keyboard and stay at the window's temporary height (a thin strip) until the
+        // input method is restarted. Load it here so the view is laid out correctly from
+        // its first measure.
+        final MainKeyboardView keyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if (keyboardView != null && keyboardView.getKeyboard() == null) {
+            loadKeyboard();
+        }
     }
 
     @Override
@@ -595,6 +605,18 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
             return;
         }
         final int visibleTopY = inputHeight - visibleKeyboardView.getHeight();
+        final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
+        if (mainKeyboardView != null && visibleKeyboardView.isShown()
+                && visibleKeyboardView == mainKeyboardView
+                && mainKeyboardView.getKeyboard() != null
+                && visibleKeyboardView.getHeight()
+                        < mainKeyboardView.getKeyboard().mOccupiedHeight) {
+            // The view was measured before its keyboard was attached, so it kept the
+            // window's temporary height and the keyboard is squeezed into a sliver. Ask for
+            // one more layout pass with the keyboard height instead of staying broken until
+            // the input method is restarted.
+            visibleKeyboardView.post(visibleKeyboardView::requestLayout);
+        }
         // Need to set expanded touchable region only if a keyboard view is being shown.
         if (visibleKeyboardView.isShown()) {
             final int touchLeft = 0;
