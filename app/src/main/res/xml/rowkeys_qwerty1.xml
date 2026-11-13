@@ -32,8 +32,8 @@
                 latin:moreKeys="!text/morekeys_q" />
             <Key
                 latin:keySpec="!text/keyspec_w"
-                latin:keyHintLabel="\\"
-                latin:additionalMoreKeys="\\\\"
+                latin:keyHintLabel="/"
+                latin:additionalMoreKeys="/,\\\\"
                 latin:moreKeys="!text/morekeys_w" />
             <Key
                 latin:keySpec="e"
