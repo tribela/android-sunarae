@@ -31,4 +31,11 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <net.kjwon15.noshiftkeyboard.latin.EmojiPaletteView
+        android:id="@+id/emoji_palette"
+        android:layoutDirection="ltr"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 </net.kjwon15.noshiftkeyboard.latin.InputView>

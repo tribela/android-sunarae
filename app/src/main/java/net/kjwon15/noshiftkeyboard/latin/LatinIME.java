@@ -523,6 +523,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     @Override
     public void onWindowHidden() {
         super.onWindowHidden();
+        mKeyboardSwitcher.hideEmojiPalette();
         final MainKeyboardView mainKeyboardView = mKeyboardSwitcher.getMainKeyboardView();
         if (mainKeyboardView != null) {
             mainKeyboardView.closing();
@@ -543,6 +544,7 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
         if (mRichImm != null && mRichImm.isHintOverrideActive()) {
             mRichImm.clearTempSubtype();
         }
+        mKeyboardSwitcher.hideEmojiPalette();
         super.onFinishInputView(finishingInput);
     }
 
@@ -839,10 +841,27 @@ public class LatinIME extends InputMethodService implements KeyboardActionListen
     // This method is public for testability of LatinIME, but also in the future it should
     // completely replace #onCodeInput.
     public void onEvent(final Event event) {
+        if (event.mKeyCode == Constants.CODE_EMOJI) {
+            mKeyboardSwitcher.showEmojiPalette();
+            return;
+        }
         final InputTransaction completeInputTransaction =
                 mInputLogic.onCodeInput(mSettings.getCurrent(), event);
         updateStateAfterInputTransaction(completeInputTransaction);
         mKeyboardSwitcher.onEvent(event, getCurrentAutoCapsState(), getCurrentRecapitalizeState());
+    }
+
+    public void commitEmoji(final String emoji) {
+        mInputLogic.commitComposingTextIfAny();
+        mInputLogic.mConnection.commitText(emoji, 1);
+    }
+
+    public void sendEmojiBackspace() {
+        onEvent(createSoftwareKeypressEvent(Constants.CODE_DELETE, false));
+    }
+
+    public void sendEmojiEnter() {
+        mInputLogic.sendDownUpKeyEvent(KeyEvent.KEYCODE_ENTER);
     }
 
     // A helper method to split the code point and the key code. Ultimately, they should not be

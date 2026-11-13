@@ -102,6 +102,7 @@ public final class Constants {
     public static final int CODE_LANGUAGE_SWITCH = -10;
     public static final int CODE_SHIFT_ENTER = -11;
     public static final int CODE_SYMBOL_SHIFT = -12;
+    public static final int CODE_EMOJI = -14;
     // Code value representing the code is not specified.
     public static final int CODE_UNSPECIFIED = -13;
 
@@ -122,6 +123,7 @@ public final class Constants {
         case CODE_ACTION_PREVIOUS: return "actionPrevious";
         case CODE_LANGUAGE_SWITCH: return "languageSwitch";
         case CODE_SHIFT_ENTER: return "shiftEnter";
+        case CODE_EMOJI: return "emoji";
         case CODE_UNSPECIFIED: return "unspec";
         case CODE_TAB: return "tab";
         case CODE_ENTER: return "enter";

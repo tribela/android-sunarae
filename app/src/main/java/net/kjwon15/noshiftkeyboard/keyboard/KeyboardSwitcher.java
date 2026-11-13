@@ -34,6 +34,7 @@ import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardState;
 import net.kjwon15.noshiftkeyboard.keyboard.internal.KeyboardTextsSet;
 import net.kjwon15.noshiftkeyboard.latin.InputView;
 import net.kjwon15.noshiftkeyboard.latin.LatinIME;
+import net.kjwon15.noshiftkeyboard.latin.EmojiPaletteView;
 import net.kjwon15.noshiftkeyboard.latin.RichInputMethodManager;
 import net.kjwon15.noshiftkeyboard.latin.settings.Settings;
 import net.kjwon15.noshiftkeyboard.latin.settings.SettingsValues;
@@ -46,6 +47,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     private static final String TAG = KeyboardSwitcher.class.getSimpleName();
 
     private MainKeyboardView mKeyboardView;
+    private EmojiPaletteView mEmojiPaletteView;
     private LatinIME mLatinIME;
     private RichInputMethodManager mRichImm;
 
@@ -136,6 +138,7 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
         if (mKeyboardView != null) {
             mKeyboardView.onHideWindow();
         }
+        hideEmojiPalette();
     }
 
     private void setKeyboard(
@@ -352,7 +355,37 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
     }
 
     public View getVisibleKeyboardView() {
+        if (mEmojiPaletteView != null && mEmojiPaletteView.getVisibility() == View.VISIBLE) {
+            return mEmojiPaletteView;
+        }
         return mKeyboardView;
+    }
+
+    public void showEmojiPalette() {
+        if (mEmojiPaletteView == null || mKeyboardView == null) {
+            return;
+        }
+        if (mEmojiPaletteView.getVisibility() == View.VISIBLE) {
+            return;
+        }
+        final int paletteHeight = mKeyboardView.getHeight() > 0
+                ? mKeyboardView.getHeight()
+                : ResourceUtils.getDefaultKeyboardHeight(
+                        mThemeContext != null ? mThemeContext.getResources() : mLatinIME.getResources());
+        mEmojiPaletteView.setPaletteHeight(paletteHeight);
+        mEmojiPaletteView.resetToRecents();
+        mKeyboardView.setVisibility(View.GONE);
+        mEmojiPaletteView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideEmojiPalette() {
+        if (mEmojiPaletteView == null || mEmojiPaletteView.getVisibility() != View.VISIBLE) {
+            return;
+        }
+        mEmojiPaletteView.setVisibility(View.GONE);
+        if (mKeyboardView != null) {
+            mKeyboardView.setVisibility(View.VISIBLE);
+        }
     }
 
     public MainKeyboardView getMainKeyboardView() {
@@ -378,6 +411,28 @@ public final class KeyboardSwitcher implements KeyboardState.SwitchActions {
 
         mKeyboardView = currentInputView.findViewById(R.id.keyboard_view);
         mKeyboardView.setKeyboardActionListener(mLatinIME);
+        mEmojiPaletteView = currentInputView.findViewById(R.id.emoji_palette);
+        mEmojiPaletteView.setListener(new EmojiPaletteView.Listener() {
+            @Override
+            public void onEmojiSelected(final String emoji) {
+                mLatinIME.commitEmoji(emoji);
+            }
+
+            @Override
+            public void onBackspace() {
+                mLatinIME.sendEmojiBackspace();
+            }
+
+            @Override
+            public void onEnter() {
+                mLatinIME.sendEmojiEnter();
+            }
+
+            @Override
+            public void onClose() {
+                hideEmojiPalette();
+            }
+        });
         return currentInputView;
     }
 }
